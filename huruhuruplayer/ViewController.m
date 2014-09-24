@@ -60,13 +60,13 @@
 
 // 今回は、ボタンを押す毎に進捗度合いを0.2ずつ増加させる例となります。
 -(IBAction)addFive:(id)sender {
-    //progress1.progress = 0.3; // progressプロパティで進捗を指定
-    [timer invalidate];
-    [progress1 setProgress:(progress1.progress+0.2) animated:YES ]; // アニメーション付きで進捗を指定
+   // [timer invalidate];
+   // [progress1 setProgress:(progress1.progress+0.2) animated:YES ]; // アニメーション付きで進捗を指定
     
-    [audioPlayer play];
-    [self timer];
-}
+   // [audioPlayer play];
+   // [self timer];
+
+   }
 
 //タイマーで１秒ずつ引いて行く
 -(void)timer{
@@ -86,5 +86,14 @@
         NSLog(@"音楽停止");
         [timer invalidate];
     }
+}
+
+-(void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event{
+    [timer invalidate];
+    [progress1 setProgress:(progress1.progress+0.2) animated:YES ]; // アニメーション付きで進捗を指定
+    
+    [audioPlayer play];
+    [self timer];
+
 }
 @end
