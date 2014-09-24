@@ -40,7 +40,9 @@
     progress1.frame = CGRectMake( 10, 400, 300, 300 );
     //progress1.transform = CGAffineTransformMakeRotation( -90.0f * M_PI / 180.0f ); // 反時計回りに90度回転して表示する
     progress1.transform = CGAffineTransformMakeScale( 1.0f, 10.0f ); // 横方向に1倍、縦方向に3倍して表示する
+    progress1.progressTintColor = [UIColor whiteColor];
 
+    progress1.alpha = 0.2;
     [self.view addSubview:progress1 ];
 }
 

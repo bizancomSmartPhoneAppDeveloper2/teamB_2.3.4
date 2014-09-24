@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		072A9A5919D30C8F00C224F7 /* sgf01a201408310400.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 072A9A5819D30C8F00C224F7 /* sgf01a201408310400.jpg */; };
 		07CD634B19D29C7300130473 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CD634A19D29C7300130473 /* main.m */; };
 		07CD634E19D29C7300130473 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CD634D19D29C7300130473 /* AppDelegate.m */; };
 		07CD635119D29C7300130473 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CD635019D29C7300130473 /* ViewController.m */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		072A9A5819D30C8F00C224F7 /* sgf01a201408310400.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = sgf01a201408310400.jpg; path = ../../tennpureto/sgf01a201408310400.jpg; sourceTree = "<group>"; };
 		07CD634519D29C7300130473 /* huruhuruplayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = huruhuruplayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07CD634919D29C7300130473 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07CD634A19D29C7300130473 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				07CD634719D29C7300130473 /* huruhuruplayer */,
+				072A9A5819D30C8F00C224F7 /* sgf01a201408310400.jpg */,
 				07CD636119D29C7300130473 /* huruhuruplayerTests */,
 				07CD634619D29C7300130473 /* Products */,
 			);
@@ -201,6 +204,7 @@
 			files = (
 				07CD635419D29C7300130473 /* Main.storyboard in Resources */,
 				07CD635919D29C7300130473 /* LaunchScreen.xib in Resources */,
+				072A9A5919D30C8F00C224F7 /* sgf01a201408310400.jpg in Resources */,
 				07CD635619D29C7300130473 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,6 +416,7 @@
 				07CD636A19D29C7300130473 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		07CD636B19D29C7300130473 /* Build configuration list for PBXNativeTarget "huruhuruplayerTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +425,7 @@
 				07CD636D19D29C7300130473 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

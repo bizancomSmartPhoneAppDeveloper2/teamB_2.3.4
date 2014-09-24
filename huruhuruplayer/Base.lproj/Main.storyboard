@@ -16,15 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLg-eG-edP">
-                                <rect key="frame" x="136" y="435" width="45" height="30"/>
-                                <state key="normal" title="貯める">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="addFive:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="4P5-1F-A9g"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0xY-2g-BDu">
                                 <rect key="frame" x="56" y="433" width="60" height="35"/>
                                 <state key="normal" title="スタート">
@@ -34,6 +25,18 @@
                                     <action selector="startbutton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="QNn-m3-Osh"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLg-eG-edP">
+                                <rect key="frame" x="136" y="435" width="45" height="30"/>
+                                <state key="normal" title="貯める">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addFive:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="4P5-1F-A9g"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sgf01a201408310400.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="6OP-Q7-9Oi">
+                                <rect key="frame" x="0.0" y="-82" width="400" height="656"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -42,4 +45,7 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="sgf01a201408310400.jpg" width="240" height="240"/>
+    </resources>
 </document>
