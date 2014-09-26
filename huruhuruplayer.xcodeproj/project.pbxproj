@@ -16,6 +16,8 @@
 		07CD635619D29C7300130473 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07CD635519D29C7300130473 /* Images.xcassets */; };
 		07CD635919D29C7300130473 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07CD635719D29C7300130473 /* LaunchScreen.xib */; };
 		07CD636519D29C7300130473 /* huruhuruplayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CD636419D29C7300130473 /* huruhuruplayerTests.m */; };
+		07DF513219D5247700801CB9 /* hitsujikun.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07DF513119D5247700801CB9 /* hitsujikun.jpg */; };
+		07DF513419D5279D00801CB9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07DF513319D5279D00801CB9 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		07CD635E19D29C7300130473 /* huruhuruplayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = huruhuruplayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07CD636319D29C7300130473 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07CD636419D29C7300130473 /* huruhuruplayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = huruhuruplayerTests.m; sourceTree = "<group>"; };
+		07DF513119D5247700801CB9 /* hitsujikun.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = hitsujikun.jpg; sourceTree = "<group>"; };
+		07DF513319D5279D00801CB9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07DF513419D5279D00801CB9 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +72,7 @@
 		07CD633C19D29C7200130473 = {
 			isa = PBXGroup;
 			children = (
+				07DF513319D5279D00801CB9 /* QuartzCore.framework */,
 				07CD634719D29C7300130473 /* huruhuruplayer */,
 				072A9A5819D30C8F00C224F7 /* sgf01a201408310400.jpg */,
 				07CD636119D29C7300130473 /* huruhuruplayerTests */,
@@ -101,6 +107,7 @@
 		07CD634819D29C7300130473 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				07DF513119D5247700801CB9 /* hitsujikun.jpg */,
 				072A9A5A19D3A45700C224F7 /* lgf01a201408310400.jpg */,
 				07CD634919D29C7300130473 /* Info.plist */,
 				07CD634A19D29C7300130473 /* main.m */,
@@ -206,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07CD635419D29C7300130473 /* Main.storyboard in Resources */,
+				07DF513219D5247700801CB9 /* hitsujikun.jpg in Resources */,
 				072A9A5B19D3A45700C224F7 /* lgf01a201408310400.jpg in Resources */,
 				07CD635919D29C7300130473 /* LaunchScreen.xib in Resources */,
 				072A9A5919D30C8F00C224F7 /* sgf01a201408310400.jpg in Resources */,

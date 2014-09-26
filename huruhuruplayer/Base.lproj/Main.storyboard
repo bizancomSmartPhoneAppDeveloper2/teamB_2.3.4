@@ -46,8 +46,19 @@
                                     <action selector="startbutton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="QNn-m3-Osh"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lgf01a201408310400.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="6OP-Q7-9Oi">
-                                <rect key="frame" x="0.0" y="-82" width="400" height="656"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="hitsujikun.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="6OP-Q7-9Oi">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="振ってね♪" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dfi-hf-nDo">
+                                <rect key="frame" x="41" y="51" width="113" height="48"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pdx-HC-kiu">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -66,13 +77,17 @@
                         </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="animationlabel" destination="Dfi-hf-nDo" id="vh7-SR-g0z"/>
+                        <outlet property="blackview" destination="Pdx-HC-kiu" id="IbF-NL-LVM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="130.5" y="84"/>
+            <point key="canvasLocation" x="130" y="84"/>
         </scene>
     </scenes>
     <resources>
-        <image name="lgf01a201408310400.jpg" width="689" height="1024"/>
+        <image name="hitsujikun.jpg" width="381" height="662"/>
     </resources>
 </document>

@@ -12,5 +12,7 @@
 @interface ViewController : UIViewController<AVAudioPlayerDelegate>
 -(IBAction)addFive:(id)sender ;
 - (IBAction)startbutton:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UILabel *animationlabel;
+@property (weak, nonatomic) IBOutlet UIImageView *blackview;
 @end
 

@@ -17,6 +17,8 @@
     UIProgressView * progress1;
    
     NSTimer *timer;
+    UIView *animationView;
+    UIImageView *imageView;
 }
 
 - (void)viewDidLoad {
@@ -37,13 +39,36 @@
     
     
     progress1 = [  [ UIProgressView alloc ] initWithProgressViewStyle:UIProgressViewStyleDefault ];
-    progress1.frame = CGRectMake( 10, 400, 300, 300 );
+    progress1.frame = CGRectMake( 10, 50, 300, 300 );
     //progress1.transform = CGAffineTransformMakeRotation( -90.0f * M_PI / 180.0f ); // 反時計回りに90度回転して表示する
     progress1.transform = CGAffineTransformMakeScale( 1.0f, 10.0f ); // 横方向に1倍、縦方向に3倍して表示する
-    progress1.progressTintColor = [UIColor whiteColor];
+    //progress1.progressTintColor = [UIColor whiteColor];
 
-    progress1.alpha = 0.2;
+    //progress1.alpha = 0.5;
     [self.view addSubview:progress1 ];
+    
+   
+    
+    
+    }
+
+- (void)viewDidAppear:(BOOL)animated{
+    UIViewAnimationOptions animeOptions =
+    UIViewAnimationOptionCurveEaseInOut
+    | UIViewAnimationOptionAutoreverse
+    | UIViewAnimationOptionRepeat;
+    
+    CGFloat cx = self.animationlabel.center.x+50;
+    CGFloat cy = self.animationlabel.center.y+80;
+    CGPoint pt = CGPointMake(cx, cy-50);
+    
+    [UIView animateWithDuration:1.5
+     delay:1
+                        options:animeOptions animations:^{
+                            self.animationlabel.center = pt;
+                            self.animationlabel.alpha = 0.2;
+                        } completion:nil];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -91,8 +116,9 @@
 }
 
 -(void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event{
+    self.blackview.hidden = NO;
     [timer invalidate];
-    [progress1 setProgress:(progress1.progress+0.2) animated:YES ]; // アニメーション付きで進捗を指定
+    [progress1 setProgress:(progress1.progress+0.3) animated:YES ]; // アニメーション付きで進捗を指定
     
     [audioPlayer play];
     [self timer];
