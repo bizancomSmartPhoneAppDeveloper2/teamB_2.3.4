@@ -16,70 +16,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLg-eG-edP">
-                                <rect key="frame" x="199" y="447" width="45" height="30"/>
-                                <state key="normal" title="貯める">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="178" y="327" width="45" height="30"/>
-                                </variation>
-                                <variation key="heightClass=compact-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="178" y="302" width="45" height="30"/>
-                                </variation>
-                                <connections>
-                                    <action selector="addFive:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="4P5-1F-A9g"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0xY-2g-BDu">
-                                <rect key="frame" x="260" y="444" width="60" height="35"/>
-                                <state key="normal" title="スタート">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="170" y="352" width="60" height="35"/>
-                                </variation>
-                                <variation key="heightClass=compact-widthClass=compact" ambiguous="YES" misplaced="YES">
-                                    <rect key="frame" x="130" y="20" width="60" height="30"/>
-                                </variation>
-                                <connections>
-                                    <action selector="startbutton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="QNn-m3-Osh"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="hitsujikun.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="6OP-Q7-9Oi">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="a-0.png" translatesAutoresizingMaskIntoConstraints="NO" id="6OP-Q7-9Oi">
+                                <rect key="frame" x="0.0" y="-15" width="320" height="582"/>
+                                <color key="backgroundColor" red="0.99520208840000002" green="0.65186173979999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="振ってね♪" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dfi-hf-nDo">
-                                <rect key="frame" x="41" y="51" width="113" height="48"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="やさしく振ってね♪" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dfi-hf-nDo">
+                                <rect key="frame" x="41" y="51" width="204" height="48"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pdx-HC-kiu">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="-1" width="320" height="568"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="159-P9-I0g">
+                                <rect key="frame" x="145" y="20" width="159" height="29"/>
+                                <segments>
+                                    <segment title="オルゴール"/>
+                                    <segment title="水の音"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentswitch:" destination="vXZ-lx-hvc" eventType="valueChanged" id="N5Q-FD-3qs"/>
+                                </connections>
+                            </segmentedControl>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.49999999999999961" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ユラユラしてね♪" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yA9-P0-N2n">
+                                <rect key="frame" x="67" y="95" width="186" height="26"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                <color key="textColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="0xY-2g-BDu" secondAttribute="centerX" id="WmE-6d-gS7"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="WmE-6d-gS7"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=compact-widthClass=compact">
-                            <mask key="constraints">
-                                <include reference="WmE-6d-gS7"/>
-                            </mask>
-                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="animationlabel" destination="Dfi-hf-nDo" id="vh7-SR-g0z"/>
                         <outlet property="blackview" destination="Pdx-HC-kiu" id="IbF-NL-LVM"/>
+                        <outlet property="yurayuralabel" destination="yA9-P0-N2n" id="GNF-7X-YRE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -88,6 +62,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="hitsujikun.jpg" width="381" height="662"/>
+        <image name="a-0.png" width="405" height="357"/>
     </resources>
 </document>

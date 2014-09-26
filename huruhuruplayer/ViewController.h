@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import <CoreMotion/CoreMotion.h>
 
 @interface ViewController : UIViewController<AVAudioPlayerDelegate>
--(IBAction)addFive:(id)sender ;
-- (IBAction)startbutton:(UIButton *)sender;
+- (IBAction)segmentswitch:(UISegmentedControl *)sender;
 @property (weak, nonatomic) IBOutlet UILabel *animationlabel;
 @property (weak, nonatomic) IBOutlet UIImageView *blackview;
+@property CMMotionManager *motionManager;
+@property (weak, nonatomic) IBOutlet UILabel *yurayuralabel;
 @end
 
