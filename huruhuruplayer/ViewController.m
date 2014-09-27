@@ -20,50 +20,66 @@
     NSTimer *timer;
     UIView *animationView;
     UIImageView *imageView;
-    NSString *url;
+    NSString *urltenki;
     NSInteger switchnumber;
     CGFloat cx;
     CGFloat cy;
     CGPoint pt;
-    
+    NSInteger tenki;
+    NSString *tenkistring;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //http://weather.livedoor.com/forecast/webservice/json/v1
-    NSString *url_2 = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=400040";
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url_2]];
+    NSString *urltenki = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=130010";//デフォルトは東京
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urltenki]];
     NSData *json_raw_data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    
+    
+    
     NSString *jstr = [[NSString alloc] initWithData:json_raw_data encoding:NSUTF8StringEncoding];
     NSString *cricket_left = @"[";
     NSString *cricket_right = @"]";
     
     jstr = [[cricket_left stringByAppendingString:jstr] stringByAppendingString:cricket_right];
+    
+    
     NSData *json_data = [jstr dataUsingEncoding:NSUnicodeStringEncoding];
     
-    NSError *error_2=nil;
-    NSArray *jarray = [NSJSONSerialization JSONObjectWithData:json_data
-                                                      options:NSJSONReadingAllowFragments
-                                                        error:&error_2];
+    NSError *error=nil;
+    NSArray *jarray = [NSJSONSerialization JSONObjectWithData:json_data　　　　　　　　　　　　　　　　　　　           options:NSJSONReadingAllowFragments
+                                                        error:&error];
+    
     NSDictionary *dic;
     
     for (NSDictionary *obj in jarray)
-        {
-            dic = obj;
-        }
+    {
+        dic = obj;
+    }
+    NSLog(@"%@",[[[dic objectForKey:@"forecasts"] objectAtIndex:1] objectForKey:@"telop"]);
     
-    NSLog(@"%@",[[[dic objectForKey:@"forecasts"] objectAtIndex:0] objectForKey:@"telop"]);
+    //ファーストビューを天気によって変える準備
+    tenkistring = [[[dic objectForKey:@"forecasts"] objectAtIndex:1] objectForKey:@"telop"];
+    if ([tenkistring isEqualToString:@"晴れ"] || [tenkistring isEqualToString:@"晴のち曇"] || [tenkistring isEqualToString:@"晴のち雨"]) {
+        NSLog(@"晴れ画像表示");
+        tenki = 0;
+    }else if ([tenkistring isEqualToString:@"曇り"] || [tenkistring isEqualToString:@"曇のち晴"] || [tenkistring isEqualToString:@"曇のち雨"]){
+        NSLog(@"曇り画像表示");
+        tenki = 1;
+    }else if ([tenkistring isEqualToString:@"雨"] || [tenkistring isEqualToString:@"雨のち曇"] || [tenkistring isEqualToString:@"雨のち晴"]){
+        NSLog(@"雨画像表示");
+        tenki = 2;
+    }
+    [self selectImage];//天気に合うファーストビューを表示
 }
-
-
-
+    
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     switchnumber = 0;
     cx = 0;
     cy = 0;
-    
+    tenki = 0;
     
     //タイマースタートと同時に効果音鳴らす
     NSError *error = nil;
@@ -94,11 +110,10 @@
     
     //プログレスバーの表示の調整
     progress1 = [  [ UIProgressView alloc ] initWithProgressViewStyle:UIProgressViewStyleDefault ];
-    progress1.frame = CGRectMake( 10, 65, 300, 300 );
+    progress1.frame = CGRectMake( 10, 450, 300, 300 );
     //progress1.transform = CGAffineTransformMakeRotation( -90.0f * M_PI / 180.0f ); // 反時計回りに90度回転して表示する
     progress1.transform = CGAffineTransformMakeScale( 1.0f, 10.0f ); // 横方向に1倍、縦方向に3倍して表示する
-    //progress1.progressTintColor = [UIColor whiteColor];
-
+    progress1.progressTintColor = [UIColor whiteColor];
     //progress1.alpha = 0.5;
     [self.view addSubview:progress1 ];
     progress1.hidden = YES;
@@ -242,6 +257,17 @@
                             self.animationlabel.center = pt;
                             self.animationlabel.alpha = 0.2;
                         } completion:nil];
+}
+
+-(void)selectImage{
+    self.hitsujiview.contentMode = UIViewContentModeScaleAspectFit;
+    if (tenki == 0) {
+        self.hitsujiview.image = [UIImage imageNamed:@"TOP-2-1.png"];
+    }else if (tenki == 1){
+        self.hitsujiview.image = [UIImage imageNamed:@"TOP-2-2.png"];
+    }else if (tenki == 2){
+        self.hitsujiview.image = [UIImage imageNamed:@"TOP-2-3.png"];
+    }
 }
 
 @end

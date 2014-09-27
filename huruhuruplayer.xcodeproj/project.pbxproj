@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		0711B4B219D5A8A400F00A44 /* a-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 0711B4B119D5A8A400F00A44 /* a-0.png */; };
 		0711B4B419D5B52200F00A44 /* mizunonaka.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0711B4B319D5B52200F00A44 /* mizunonaka.mp3 */; };
+		0711B4B619D6F62000F00A44 /* TOP-2-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0711B4B519D6F62000F00A44 /* TOP-2-1.png */; };
+		0711B4B819D6F62A00F00A44 /* TOP-2-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0711B4B719D6F62A00F00A44 /* TOP-2-2.png */; };
+		0711B4BA19D6F63700F00A44 /* TOP-2-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0711B4B919D6F63700F00A44 /* TOP-2-3.png */; };
 		072A9A5919D30C8F00C224F7 /* sgf01a201408310400.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 072A9A5819D30C8F00C224F7 /* sgf01a201408310400.jpg */; };
 		072A9A5B19D3A45700C224F7 /* lgf01a201408310400.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 072A9A5A19D3A45700C224F7 /* lgf01a201408310400.jpg */; };
 		07CD634B19D29C7300130473 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CD634A19D29C7300130473 /* main.m */; };
@@ -37,6 +40,9 @@
 /* Begin PBXFileReference section */
 		0711B4B119D5A8A400F00A44 /* a-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "a-0.png"; path = "../../../tennpureto/a-0.png"; sourceTree = "<group>"; };
 		0711B4B319D5B52200F00A44 /* mizunonaka.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = mizunonaka.mp3; path = ../../../tennpureto/mizunonaka.mp3; sourceTree = "<group>"; };
+		0711B4B519D6F62000F00A44 /* TOP-2-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TOP-2-1.png"; path = "../../../tennpureto/TOP-2-1.png"; sourceTree = "<group>"; };
+		0711B4B719D6F62A00F00A44 /* TOP-2-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TOP-2-2.png"; path = "../../../tennpureto/TOP-2-2.png"; sourceTree = "<group>"; };
+		0711B4B919D6F63700F00A44 /* TOP-2-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TOP-2-3.png"; path = "../../../tennpureto/TOP-2-3.png"; sourceTree = "<group>"; };
 		072A9A5819D30C8F00C224F7 /* sgf01a201408310400.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = sgf01a201408310400.jpg; path = ../../tennpureto/sgf01a201408310400.jpg; sourceTree = "<group>"; };
 		072A9A5A19D3A45700C224F7 /* lgf01a201408310400.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lgf01a201408310400.jpg; sourceTree = "<group>"; };
 		07CD634519D29C7300130473 /* huruhuruplayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = huruhuruplayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +123,9 @@
 		07CD634819D29C7300130473 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0711B4B919D6F63700F00A44 /* TOP-2-3.png */,
+				0711B4B719D6F62A00F00A44 /* TOP-2-2.png */,
+				0711B4B519D6F62000F00A44 /* TOP-2-1.png */,
 				0711B4B319D5B52200F00A44 /* mizunonaka.mp3 */,
 				0711B4B119D5A8A400F00A44 /* a-0.png */,
 				07EA897D19D539250008244C /* hitsujichan.png */,
@@ -225,10 +234,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0711B4BA19D6F63700F00A44 /* TOP-2-3.png in Resources */,
+				0711B4B619D6F62000F00A44 /* TOP-2-1.png in Resources */,
 				0711B4B219D5A8A400F00A44 /* a-0.png in Resources */,
 				07CD635419D29C7300130473 /* Main.storyboard in Resources */,
 				07EA897E19D539250008244C /* hitsujichan.png in Resources */,
 				07DF513219D5247700801CB9 /* hitsujikun.jpg in Resources */,
+				0711B4B819D6F62A00F00A44 /* TOP-2-2.png in Resources */,
 				072A9A5B19D3A45700C224F7 /* lgf01a201408310400.jpg in Resources */,
 				07CD635919D29C7300130473 /* LaunchScreen.xib in Resources */,
 				072A9A5919D30C8F00C224F7 /* sgf01a201408310400.jpg in Resources */,

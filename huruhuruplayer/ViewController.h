@@ -14,6 +14,7 @@
 - (IBAction)segmentswitch:(UISegmentedControl *)sender;
 @property (weak, nonatomic) IBOutlet UILabel *animationlabel;
 @property (weak, nonatomic) IBOutlet UIImageView *blackview;
+@property (weak, nonatomic) IBOutlet UIImageView *hitsujiview;
 @property CMMotionManager *motionManager;
 @property (weak, nonatomic) IBOutlet UILabel *yurayuralabel;
 @end
