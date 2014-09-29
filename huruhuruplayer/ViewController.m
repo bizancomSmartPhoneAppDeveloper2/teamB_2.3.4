@@ -28,51 +28,16 @@
     NSInteger tenki;
     NSString *tenkistring;
     UIActionSheet *actionsheet;
+    NSString *idString;
+    BOOL bashoButtonDown;
+    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSString *urltenki = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=130010";//デフォルトは東京
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urltenki]];
-    NSData *json_raw_data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     
-    
-    
-    NSString *jstr = [[NSString alloc] initWithData:json_raw_data encoding:NSUTF8StringEncoding];
-    NSString *cricket_left = @"[";
-    NSString *cricket_right = @"]";
-    
-    jstr = [[cricket_left stringByAppendingString:jstr] stringByAppendingString:cricket_right];
-    
-    
-    NSData *json_data = [jstr dataUsingEncoding:NSUnicodeStringEncoding];
-    
-    NSError *error=nil;
-    NSArray *jarray = [NSJSONSerialization JSONObjectWithData:json_data　　　　　　　　　　　　　　　　　　　           options:NSJSONReadingAllowFragments
-                                                        error:&error];
-    
-    NSDictionary *dic;
-    
-    for (NSDictionary *obj in jarray)
-    {
-        dic = obj;
-    }
-    NSLog(@"%@",[[[dic objectForKey:@"forecasts"] objectAtIndex:1] objectForKey:@"telop"]);
-    
-    //ファーストビューを天気によって変える準備
-    tenkistring = [[[dic objectForKey:@"forecasts"] objectAtIndex:1] objectForKey:@"telop"];
-    if ([tenkistring isEqualToString:@"晴れ"] || [tenkistring isEqualToString:@"晴のち曇"] || [tenkistring isEqualToString:@"晴のち雨"]  || [tenkistring isEqualToString:@"晴時々雨"]  || [tenkistring isEqualToString:@"晴時々曇"]) {
-        NSLog(@"晴れ画像表示");
-        tenki = 0;
-    }else if ([tenkistring isEqualToString:@"曇り"] || [tenkistring isEqualToString:@"曇のち晴"] || [tenkistring isEqualToString:@"曇のち雨"] || [tenkistring isEqualToString:@"曇時々雨"]  || [tenkistring isEqualToString:@"曇時々晴"]){
-        NSLog(@"曇り画像表示");
-        tenki = 1;
-    }else if ([tenkistring isEqualToString:@"雨"] || [tenkistring isEqualToString:@"雨のち曇"] || [tenkistring isEqualToString:@"雨のち晴"]
-        || [tenkistring isEqualToString:@"雨時々曇"]  || [tenkistring isEqualToString:@"雨時々晴"]){
-        NSLog(@"雨画像表示");
-        tenki = 2;
-    }
-    [self selectImage];//天気に合うファーストビューを表示
+    [self bashoTenkiView];
 }
     
 - (void)viewDidLoad {
@@ -119,7 +84,7 @@
     //progress1.alpha = 0.5;
     [self.view addSubview:progress1 ];
     progress1.hidden = YES;
-    self.basho.hidden = NO;
+    self.basholabel.text = @"徳島県";
     
 }
 
@@ -280,65 +245,353 @@
     }
 }
 
--(void)productActionsheet{
-    actionsheet = [[UIActionSheet alloc]init];
-    actionsheet.delegate = self;
-    [actionsheet addButtonWithTitle:@"北海道"];
-    [actionsheet addButtonWithTitle:@"青森"];
-    [actionsheet addButtonWithTitle:@"岩手"];
-    [actionsheet addButtonWithTitle:@"宮城"];
-    [actionsheet addButtonWithTitle:@"秋田"];
-    [actionsheet addButtonWithTitle:@"山形"];
-    [actionsheet addButtonWithTitle:@"福島"];
-    [actionsheet addButtonWithTitle:@"茨城"];
-    [actionsheet addButtonWithTitle:@"栃木"];
-    [actionsheet addButtonWithTitle:@"群馬"];
-    [actionsheet addButtonWithTitle:@"埼玉"];
-    [actionsheet addButtonWithTitle:@"千葉"];
-    [actionsheet addButtonWithTitle:@"東京"];
-    [actionsheet addButtonWithTitle:@"神奈川"];
-    [actionsheet addButtonWithTitle:@"新潟"];
-    [actionsheet addButtonWithTitle:@"富山"];
-    [actionsheet addButtonWithTitle:@"石川"];
-    [actionsheet addButtonWithTitle:@"福井"];
-    [actionsheet addButtonWithTitle:@"山梨"];
-    [actionsheet addButtonWithTitle:@"長野"];
-    [actionsheet addButtonWithTitle:@"岐阜"];
-    [actionsheet addButtonWithTitle:@"静岡"];
-    [actionsheet addButtonWithTitle:@"愛知"];
-    [actionsheet addButtonWithTitle:@"三重"];
-    [actionsheet addButtonWithTitle:@"滋賀"];
-    [actionsheet addButtonWithTitle:@"京都"];
-    [actionsheet addButtonWithTitle:@"大阪"];
-    [actionsheet addButtonWithTitle:@"兵庫"];
-    [actionsheet addButtonWithTitle:@"奈良"];
-    [actionsheet addButtonWithTitle:@"和歌山"];
-    [actionsheet addButtonWithTitle:@"鳥取"];
-    [actionsheet addButtonWithTitle:@"島根"];
-    [actionsheet addButtonWithTitle:@"岡山"];
-    [actionsheet addButtonWithTitle:@"広島"];
-    [actionsheet addButtonWithTitle:@"山口"];
-    [actionsheet addButtonWithTitle:@"徳島"];
-    [actionsheet addButtonWithTitle:@"香川"];
-    [actionsheet addButtonWithTitle:@"愛媛"];
-    [actionsheet addButtonWithTitle:@"高知"];
-    [actionsheet addButtonWithTitle:@"福岡"];
-    [actionsheet addButtonWithTitle:@"佐賀"];
-    [actionsheet addButtonWithTitle:@"長崎"];
-    [actionsheet addButtonWithTitle:@"熊本"];
-    [actionsheet addButtonWithTitle:@"大分"];
-    [actionsheet addButtonWithTitle:@"宮崎"];
-    [actionsheet addButtonWithTitle:@"鹿児島"];
-    [actionsheet addButtonWithTitle:@"沖縄"];
-    [actionsheet addButtonWithTitle:@"キャンセル"];
-    actionsheet.cancelButtonIndex = 48;
-    actionsheet.actionSheetStyle = UIActionSheetStyleDefault;
-    [actionsheet showInView:self.view];
-
-}
 
 - (IBAction)bashobutton:(UIButton *)sender {
-    [self productActionsheet];
+    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"選んでください"
+                                                      delegate:self
+                                             cancelButtonTitle:@"キャンセル"
+                                        destructiveButtonTitle:NULL
+                                             otherButtonTitles:@"北海道",@"青森県",@"岩手県",@"宮城県",@"秋田県",@"山形県",@"福島県",@"茨城県",@"栃木県",@"群馬県",
+                            @"埼玉県",@"千葉県",@"東京都",@"神奈川県",@"新潟県",@"富山県",@"石川県",@"福井県",@"山梨県",@"長野県",
+                            @"岐阜県",@"静岡県",@"愛知県",@"三重県",@"滋賀県",@"京都府",@"大阪府",@"兵庫県",@"奈良県",@"和歌山県",
+                            @"鳥取県",@"島根県",@"岡山県",@"広島県",@"山口県",@"徳島県",@"香川県",@"愛媛県",@"高知県",@"福岡県",
+                            @"佐賀県",@"長崎県",@"熊本県",@"大分県",@"宮崎県",@"鹿児島県",@"沖縄県", nil];
+    [sheet showInView:self.view];
 
 }
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    bashoButtonDown = YES;
+    
+    switch (buttonIndex) {
+        case 0:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=016010";
+            //id = 016010;
+            self.basholabel.text = @"北海道";
+            break;
+        case 1:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=020010";
+            //id = 020010;
+            self.basholabel.text = @"青森県";
+            break;
+        case 2:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=030010";
+            //id = 030010;
+            self.basholabel.text = @"岩手県";
+            break;
+        case 3:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=040010";
+            //id = 040010;
+            self.basholabel.text = @"宮城県";
+            break;
+        case 4:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=050010";
+            //id = 050010;
+            self.basholabel.text = @"秋田県";
+            break;
+        case 5:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=060010";
+            //id = 060010;
+            self.basholabel.text = @"山形県";
+            break;
+        case 6:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=070010";
+            //id = 070010;
+            self.basholabel.text = @"福島県";
+            break;
+        case 7:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=080010";
+            //id = 080010;
+            self.basholabel.text = @"茨城県";
+            break;
+        case 8:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=090010";
+            //id = 090010;
+            self.basholabel.text = @"栃木県";
+            break;
+        case 9:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=100010";
+            //id = 100010;
+            self.basholabel.text = @"群馬県";
+            break;
+        case 10:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=110010";
+            //id = 110010;
+            self.basholabel.text = @"埼玉県";
+            break;
+        case 11:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=120010";
+            //id = 120010;
+            self.basholabel.text = @"千葉県";
+            break;
+        case 12:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=130010";
+            //id = 130010;
+            self.basholabel.text = @"東京都";
+            break;
+        case 13:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=140010";
+            //id = 140010;
+            self.basholabel.text = @"神奈川県";
+            break;
+        case 14:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=150010";
+            //id = 150010;
+            self.basholabel.text = @"新潟県";
+            break;
+        case 15:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=160010";
+            //id = 160010;
+            self.basholabel.text = @"富山県";
+            break;
+        case 16:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=170010";
+            //id = 170010;
+            self.basholabel.text = @"石川県";
+
+            break;
+        case 17:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=180010";
+            //id = 180010;
+            self.basholabel.text = @"福井県";
+
+            break;
+        case 18:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=190010";
+            //id = 190010;
+            self.basholabel.text = @"山梨県";
+
+            break;
+        case 19:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=200010";
+            //id = 200010;
+            self.basholabel.text = @"長野県";
+
+            break;
+        case 20:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=210010";
+            //id = 210010;
+            self.basholabel.text = @"岐阜県";
+
+            break;
+        case 21:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=220010";
+            //id = 220010;
+            self.basholabel.text = @"静岡県";
+
+            break;
+        case 22:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=230010";
+            //id = 230010;
+            self.basholabel.text = @"愛知県";
+
+            break;
+        case 23:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=240010";
+            //id = 240010;
+            self.basholabel.text = @"三重県";
+
+            break;
+        case 24:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=250010";
+            //id = 250010;
+            self.basholabel.text = @"滋賀県";
+
+            break;
+        case 25:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=260010";
+            //id = 260010;
+            self.basholabel.text = @"京都府";
+
+            break;
+        case 26:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=270010";
+            //id = 270010;
+            self.basholabel.text = @"大阪県";
+
+            break;
+        case 27:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=280010";
+            //id = 280010;
+            self.basholabel.text = @"兵庫県";
+
+            break;
+        case 28:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=290010";
+            //id = 290010;
+            self.basholabel.text = @"奈良県";
+
+            break;
+        case 29:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=300010";
+            //id = 300010;
+            self.basholabel.text = @"和歌山県";
+
+            break;
+        case 30:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=310010";
+            //id = 310010;
+            self.basholabel.text = @"鳥取県";
+
+            break;
+        case 31:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=320010";
+            //id = 320010;
+            self.basholabel.text = @"島根県";
+            break;
+        case 32:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=330010";
+            //id = 330010;
+            self.basholabel.text = @"岡山県";
+
+            break;
+        case 33:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=340010";
+            //id = 340010;
+            self.basholabel.text = @"広島県";
+
+            break;
+        case 34:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=350010";
+            //id = 350010;
+            self.basholabel.text = @"山口県";
+
+            break;
+        case 35:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=360010";
+            //id = 360010;
+            self.basholabel.text = @"徳島県";
+
+            break;
+        case 36:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=370010";
+            //id = 370010;
+            self.basholabel.text = @"香川県";
+
+            break;
+        case 37:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=380010";
+            //id = 380010;
+            self.basholabel.text = @"愛媛県";
+
+            break;
+        case 38:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=390010";
+            //id = 390010;
+            self.basholabel.text = @"高知県";
+
+            break;
+        case 39:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=400010";
+            //id = 400010;
+            self.basholabel.text = @"福岡県";
+
+            break;
+        case 40:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=410010";
+            //id = 410010;
+            self.basholabel.text = @"佐賀県";
+
+            break;
+        case 41:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=420010";
+            //id = 420010;
+            self.basholabel.text = @"長崎県";
+
+            break;
+        case 42:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=430010";
+            //id = 430010;
+            self.basholabel.text = @"熊本県";
+
+            break;
+        case 43:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=440010";
+            //id = 440010;
+            self.basholabel.text = @"大分県";
+
+            break;
+        case 44:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=450010";
+            //id = 450010;
+            self.basholabel.text = @"宮崎県";
+
+            break;
+        case 45:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=460010";
+            //id = 460010;
+            self.basholabel.text = @"鹿児島県";
+
+            break;
+        case 46:
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=471010";
+            //id = 471010;
+            self.basholabel.text = @"沖縄県";
+
+            break;
+    
+        case 47:
+            //ボタン意外の場所を押したとき
+            idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=130010";
+
+            break;
+        default:
+            break;
+    }
+    urltenki = idString;
+    //self.flower.backgroundColor = color;
+    
+    [self bashoTenkiView];
+}
+
+-(void)bashoTenkiView{
+    NSString *urltenki;
+    if(bashoButtonDown == NO){
+        urltenki = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=360010";
+        NSLog(@"場所はデフォルトのままです");
+        //デフォルトは東京
+    }else{
+        urltenki = idString;
+        NSLog(@"%@",urltenki);
+    }
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urltenki]];
+    NSData *json_raw_data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    NSString *jstr = [[NSString alloc] initWithData:json_raw_data encoding:NSUTF8StringEncoding];
+    NSString *cricket_left = @"[";
+    NSString *cricket_right = @"]";
+    
+    jstr = [[cricket_left stringByAppendingString:jstr] stringByAppendingString:cricket_right];
+    
+    
+    NSData *json_data = [jstr dataUsingEncoding:NSUnicodeStringEncoding];
+    
+    NSError *error=nil;
+    NSArray *jarray = [NSJSONSerialization JSONObjectWithData:json_data　　　　　　　　　　　　　　　　　　　           options:NSJSONReadingAllowFragments
+                                                        error:&error];
+    
+    NSDictionary *dic;
+    
+    for (NSDictionary *obj in jarray)
+    {
+        dic = obj;
+    }
+    NSLog(@"%@",[[[dic objectForKey:@"forecasts"] objectAtIndex:1] objectForKey:@"telop"]);
+    
+    //ファーストビューを天気によって変える準備
+    tenkistring = [[[dic objectForKey:@"forecasts"] objectAtIndex:1] objectForKey:@"telop"];
+    if ([tenkistring isEqualToString:@"晴れ"] || [tenkistring isEqualToString:@"晴のち曇"] || [tenkistring isEqualToString:@"晴のち雨"]  || [tenkistring isEqualToString:@"晴時々雨"]  || [tenkistring isEqualToString:@"晴時々曇"]) {
+        NSLog(@"晴れ画像表示");
+        tenki = 0;
+    }else if ([tenkistring isEqualToString:@"曇り"] || [tenkistring isEqualToString:@"曇のち晴"] || [tenkistring isEqualToString:@"曇のち雨"] || [tenkistring isEqualToString:@"曇時々雨"]  || [tenkistring isEqualToString:@"曇時々晴"]){
+        NSLog(@"曇り画像表示");
+        tenki = 1;
+    }else if ([tenkistring isEqualToString:@"雨"] || [tenkistring isEqualToString:@"雨のち曇"] || [tenkistring isEqualToString:@"雨のち晴"]
+              || [tenkistring isEqualToString:@"雨時々曇"]  || [tenkistring isEqualToString:@"雨時々晴"]){
+        NSLog(@"雨画像表示");
+        tenki = 2;
+    }
+    [self selectImage];//天気に合うファーストビューを表示
+}
+
 @end

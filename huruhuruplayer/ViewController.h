@@ -11,6 +11,7 @@
 #import <CoreMotion/CoreMotion.h>
 
 @interface ViewController : UIViewController<AVAudioPlayerDelegate,UIActionSheetDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *basholabel;
 - (IBAction)segmentswitch:(UISegmentedControl *)sender;
 @property (weak, nonatomic) IBOutlet UILabel *animationlabel;
 @property (weak, nonatomic) IBOutlet UIButton *basho;
