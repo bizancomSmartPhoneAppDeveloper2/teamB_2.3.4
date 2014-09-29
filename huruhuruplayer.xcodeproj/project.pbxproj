@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		072A9A5919D30C8F00C224F7 /* sgf01a201408310400.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 072A9A5819D30C8F00C224F7 /* sgf01a201408310400.jpg */; };
 		07A3060A19D93741009AC42F /* TOP-2-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A3060719D93741009AC42F /* TOP-2-1.png */; };
 		07A3060B19D93741009AC42F /* TOP-2-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A3060819D93741009AC42F /* TOP-2-2.png */; };
 		07A3060C19D93741009AC42F /* TOP-2-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A3060919D93741009AC42F /* TOP-2-3.png */; };
@@ -35,7 +34,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		072A9A5819D30C8F00C224F7 /* sgf01a201408310400.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = sgf01a201408310400.jpg; path = ../../tennpureto/sgf01a201408310400.jpg; sourceTree = "<group>"; };
 		07A3060719D93741009AC42F /* TOP-2-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TOP-2-1.png"; sourceTree = "<group>"; };
 		07A3060819D93741009AC42F /* TOP-2-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TOP-2-2.png"; sourceTree = "<group>"; };
 		07A3060919D93741009AC42F /* TOP-2-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TOP-2-3.png"; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 				07EA897B19D538730008244C /* CoreMotion.framework */,
 				07DF513319D5279D00801CB9 /* QuartzCore.framework */,
 				07CD634719D29C7300130473 /* huruhuruplayer */,
-				072A9A5819D30C8F00C224F7 /* sgf01a201408310400.jpg */,
 				07CD636119D29C7300130473 /* huruhuruplayerTests */,
 				07CD634619D29C7300130473 /* Products */,
 			);
@@ -231,7 +228,6 @@
 				07A3060E19D93855009AC42F /* yurikagonouta.mp3 in Resources */,
 				07A3060A19D93741009AC42F /* TOP-2-1.png in Resources */,
 				07CD635919D29C7300130473 /* LaunchScreen.xib in Resources */,
-				072A9A5919D30C8F00C224F7 /* sgf01a201408310400.jpg in Resources */,
 				07CD635619D29C7300130473 /* Images.xcassets in Resources */,
 				07A3061019D938F7009AC42F /* mizunonaka.mp3 in Resources */,
 			);
