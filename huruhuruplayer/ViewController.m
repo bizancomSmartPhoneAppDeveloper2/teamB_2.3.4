@@ -20,7 +20,6 @@
     NSTimer *timer;
     UIView *animationView;
     UIImageView *imageView;
-    NSString *urltenki;
     NSInteger switchnumber;
     CGFloat cx;
     CGFloat cy;
@@ -32,6 +31,7 @@
     BOOL bashoButtonDown;
     NSString *user_todouhuken;
     UIActionSheet *sheet;
+    NSString *url_tenki;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -90,7 +90,12 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     user_todouhuken = [defaults stringForKey:@"initialLetters"];
     self.basholabel.text = user_todouhuken;
-
+    
+    //保存されているはずのユーザが選択した都道府県に対応する天気APIのURLを取り出す
+    NSUserDefaults *defaults_1 = [NSUserDefaults standardUserDefaults];
+    idString = [defaults_1 stringForKey:@"initialLetters_1"];
+    NSLog(@"%@",idString);
+    url_tenki = idString;//後で生成するurlrequestのためにurl_tenkiに代入しておく
 }
 
 
@@ -546,29 +551,26 @@
         default:
             break;
     }
-    urltenki = idString;
+    url_tenki = idString;
     [self bashoTenkiView];
     user_todouhuken = self.basholabel.text;//ユーザが選んだ都道府県を代入しておく
     
     //ユーザが選択した都道府県のデータの保存
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:user_todouhuken forKey:@"initialLetters"];
+    
+    //ユーザが選択した都道府県に対応するのURLの保存
+    NSUserDefaults *defaults_1 = [NSUserDefaults standardUserDefaults];
+    [defaults_1 setObject:idString forKey:@"initialLetters_1"];
+    
+    NSLog(@"%@",idString);
 }
 
 -(void)bashoTenkiView{
-    NSString *urltenki;
-    
     //都道府県がユーザに選択されていない場合はデフォルト徳島県を適用
-    if(bashoButtonDown == NO){
-        urltenki = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=360010";
-        NSLog(@"場所はデフォルトのままです");
-    }else{
-        //ユーザが都道府県を選択した場合はそれに対応したURLを天気APIを取るためにセット
-        urltenki = idString;
-        NSLog(@"%@",urltenki);
-    }
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urltenki]];
+    NSLog(@"%@",user_todouhuken);
+   
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url_tenki]];
     NSData *json_raw_data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSString *jstr = [[NSString alloc] initWithData:json_raw_data encoding:NSUTF8StringEncoding];
     NSString *cricket_left = @"[";
@@ -580,7 +582,7 @@
     NSData *json_data = [jstr dataUsingEncoding:NSUnicodeStringEncoding];
     
     NSError *error=nil;
-    NSArray *jarray = [NSJSONSerialization JSONObjectWithData:json_data　　　　　　　　　　　　　　　　　　　           options:NSJSONReadingAllowFragments
+    NSArray *jarray = [NSJSONSerialization JSONObjectWithData:json_data                       options:NSJSONReadingAllowFragments
                                                         error:&error];
     
     NSDictionary *dic;
