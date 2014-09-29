@@ -30,8 +30,8 @@
     UIActionSheet *actionsheet;
     NSString *idString;
     BOOL bashoButtonDown;
-    
-
+    NSString *user_todouhuken;
+    UIActionSheet *sheet;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -86,6 +86,11 @@
     progress1.hidden = YES;
     self.basholabel.text = @"徳島県";
     
+    //ユーザが選択した都道府県があればそれをデフォルトとして表示する、保存されている都道府県を取り出してラベルに表示
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    user_todouhuken = [defaults stringForKey:@"initialLetters"];
+    self.basholabel.text = user_todouhuken;
+
 }
 
 
@@ -245,9 +250,9 @@
     }
 }
 
-
+//都道府県をアクションシートの中のボタンで選択してもらうので、そのためのアクションシートとボタンを生成
 - (IBAction)bashobutton:(UIButton *)sender {
-    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"選んでください"
+    sheet = [[UIActionSheet alloc]initWithTitle:@"選んでください"
                                                       delegate:self
                                              cancelButtonTitle:@"キャンセル"
                                         destructiveButtonTitle:NULL
@@ -260,14 +265,17 @@
 
 }
 
+//アクションシートのボタンで都道府県を選択されたらこのメソッドが呼ばれる
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    bashoButtonDown = YES;
+    bashoButtonDown = YES;//場所ボタンが押されたかどうか
     
+    //アクションシートで押されたボタンのインデクス
+    //idstringは天気APIで使うURL,都道府県によって異なるURL
     switch (buttonIndex) {
         case 0:
             idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=016010";
             //id = 016010;
-            self.basholabel.text = @"北海道";
+            self.basholabel.text = @"北海道";//ボタンに重ねてあるラベルに選択された都道府県名を表示する
             break;
         case 1:
             idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=020010";
@@ -539,18 +547,23 @@
             break;
     }
     urltenki = idString;
-    //self.flower.backgroundColor = color;
-    
     [self bashoTenkiView];
+    user_todouhuken = self.basholabel.text;//ユーザが選んだ都道府県を代入しておく
+    
+    //ユーザが選択した都道府県のデータの保存
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:user_todouhuken forKey:@"initialLetters"];
 }
 
 -(void)bashoTenkiView{
     NSString *urltenki;
+    
+    //都道府県がユーザに選択されていない場合はデフォルト徳島県を適用
     if(bashoButtonDown == NO){
         urltenki = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=360010";
         NSLog(@"場所はデフォルトのままです");
-        //デフォルトは東京
     }else{
+        //ユーザが都道府県を選択した場合はそれに対応したURLを天気APIを取るためにセット
         urltenki = idString;
         NSLog(@"%@",urltenki);
     }
@@ -592,15 +605,6 @@
         tenki = 2;
     }
     [self selectImage];//天気に合うファーストビューを表示
-    
-   //選択データの保存
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults setObject:jstr forKey:@"initialLetters"];
-
-    NSString *str = [defaults objectForKey:@"initialLetters"];
-    
-    
     
     
 
