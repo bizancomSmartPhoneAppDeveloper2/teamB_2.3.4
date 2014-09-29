@@ -48,12 +48,15 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tg6-8M-a6r">
-                                <rect key="frame" x="0.0" y="28" width="104" height="29"/>
+                                <rect key="frame" x="-5" y="23" width="104" height="40"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                <state key="normal" title="都道府県">
+                                <state key="normal" title="東京都">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="bashobutton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="feU-YG-BrG"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -61,6 +64,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="animationlabel" destination="Dfi-hf-nDo" id="vh7-SR-g0z"/>
+                        <outlet property="basho" destination="Tg6-8M-a6r" id="1ZW-5v-dfs"/>
                         <outlet property="blackview" destination="Pdx-HC-kiu" id="sW0-6v-EFH"/>
                         <outlet property="hitsujiview" destination="6OP-Q7-9Oi" id="c22-d6-TgE"/>
                         <outlet property="yurayuralabel" destination="yA9-P0-N2n" id="GNF-7X-YRE"/>

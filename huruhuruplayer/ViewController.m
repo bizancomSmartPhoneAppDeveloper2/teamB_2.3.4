@@ -27,6 +27,7 @@
     CGPoint pt;
     NSInteger tenki;
     NSString *tenkistring;
+    UIActionSheet *actionsheet;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -60,13 +61,14 @@
     
     //ファーストビューを天気によって変える準備
     tenkistring = [[[dic objectForKey:@"forecasts"] objectAtIndex:1] objectForKey:@"telop"];
-    if ([tenkistring isEqualToString:@"晴れ"] || [tenkistring isEqualToString:@"晴のち曇"] || [tenkistring isEqualToString:@"晴のち雨"]) {
+    if ([tenkistring isEqualToString:@"晴れ"] || [tenkistring isEqualToString:@"晴のち曇"] || [tenkistring isEqualToString:@"晴のち雨"]  || [tenkistring isEqualToString:@"晴時々雨"]  || [tenkistring isEqualToString:@"晴時々曇"]) {
         NSLog(@"晴れ画像表示");
         tenki = 0;
-    }else if ([tenkistring isEqualToString:@"曇り"] || [tenkistring isEqualToString:@"曇のち晴"] || [tenkistring isEqualToString:@"曇のち雨"]){
+    }else if ([tenkistring isEqualToString:@"曇り"] || [tenkistring isEqualToString:@"曇のち晴"] || [tenkistring isEqualToString:@"曇のち雨"] || [tenkistring isEqualToString:@"曇時々雨"]  || [tenkistring isEqualToString:@"曇時々晴"]){
         NSLog(@"曇り画像表示");
         tenki = 1;
-    }else if ([tenkistring isEqualToString:@"雨"] || [tenkistring isEqualToString:@"雨のち曇"] || [tenkistring isEqualToString:@"雨のち晴"]){
+    }else if ([tenkistring isEqualToString:@"雨"] || [tenkistring isEqualToString:@"雨のち曇"] || [tenkistring isEqualToString:@"雨のち晴"]
+        || [tenkistring isEqualToString:@"雨時々曇"]  || [tenkistring isEqualToString:@"雨時々晴"]){
         NSLog(@"雨画像表示");
         tenki = 2;
     }
@@ -117,6 +119,8 @@
     //progress1.alpha = 0.5;
     [self.view addSubview:progress1 ];
     progress1.hidden = YES;
+    self.basho.hidden = NO;
+    
 }
 
 
@@ -185,6 +189,8 @@
 //シェイクさせれるとこのメソッドが呼ばれる
 -(void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event{
     if (switchnumber == 0) {
+        NSLog(@"シェイクされました");
+        self.basho.hidden = YES;
         self.blackview.hidden = NO;
         [timer invalidate];
         progress1.hidden = NO;
@@ -196,9 +202,10 @@
     
 }
 
-
 //傾けられるとこのメソッドが呼ばれる
 -(void)startMoving{
+    
+    self.basho.hidden = YES;
     self.blackview.hidden = NO;
     self.motionManager = [[CMMotionManager alloc]init];
     
@@ -213,12 +220,14 @@
                                                  float centerY;
                                                  centerY = 284.0 -acceleration.y *284.0;
                                                  if (centerY < 284) {
-                                                     [mizunooto_Player play];                                          }else if (centerY > 284){
+                                                     [mizunooto_Player play];
+                                                  NSLog(@"ゆらゆらされました");}else if (centerY > 284){
                                                          [mizunooto_Player play];
                                                                                                     }else if(centerY == 284){
                                                                                                         [mizunooto_Player stop];
                                                                                                     }
                                                  self.yurayuralabel.center = CGPointMake(self.yurayuralabel.center.x, centerY);                                             }];
+   
 }
 
 //-(void)yurayuralabelAnimation{
@@ -259,6 +268,7 @@
                         } completion:nil];
 }
 
+//天気によってファーストビューの画像を変える
 -(void)selectImage{
     self.hitsujiview.contentMode = UIViewContentModeScaleAspectFit;
     if (tenki == 0) {
@@ -270,4 +280,65 @@
     }
 }
 
+-(void)productActionsheet{
+    actionsheet = [[UIActionSheet alloc]init];
+    actionsheet.delegate = self;
+    [actionsheet addButtonWithTitle:@"北海道"];
+    [actionsheet addButtonWithTitle:@"青森"];
+    [actionsheet addButtonWithTitle:@"岩手"];
+    [actionsheet addButtonWithTitle:@"宮城"];
+    [actionsheet addButtonWithTitle:@"秋田"];
+    [actionsheet addButtonWithTitle:@"山形"];
+    [actionsheet addButtonWithTitle:@"福島"];
+    [actionsheet addButtonWithTitle:@"茨城"];
+    [actionsheet addButtonWithTitle:@"栃木"];
+    [actionsheet addButtonWithTitle:@"群馬"];
+    [actionsheet addButtonWithTitle:@"埼玉"];
+    [actionsheet addButtonWithTitle:@"千葉"];
+    [actionsheet addButtonWithTitle:@"東京"];
+    [actionsheet addButtonWithTitle:@"神奈川"];
+    [actionsheet addButtonWithTitle:@"新潟"];
+    [actionsheet addButtonWithTitle:@"富山"];
+    [actionsheet addButtonWithTitle:@"石川"];
+    [actionsheet addButtonWithTitle:@"福井"];
+    [actionsheet addButtonWithTitle:@"山梨"];
+    [actionsheet addButtonWithTitle:@"長野"];
+    [actionsheet addButtonWithTitle:@"岐阜"];
+    [actionsheet addButtonWithTitle:@"静岡"];
+    [actionsheet addButtonWithTitle:@"愛知"];
+    [actionsheet addButtonWithTitle:@"三重"];
+    [actionsheet addButtonWithTitle:@"滋賀"];
+    [actionsheet addButtonWithTitle:@"京都"];
+    [actionsheet addButtonWithTitle:@"大阪"];
+    [actionsheet addButtonWithTitle:@"兵庫"];
+    [actionsheet addButtonWithTitle:@"奈良"];
+    [actionsheet addButtonWithTitle:@"和歌山"];
+    [actionsheet addButtonWithTitle:@"鳥取"];
+    [actionsheet addButtonWithTitle:@"島根"];
+    [actionsheet addButtonWithTitle:@"岡山"];
+    [actionsheet addButtonWithTitle:@"広島"];
+    [actionsheet addButtonWithTitle:@"山口"];
+    [actionsheet addButtonWithTitle:@"徳島"];
+    [actionsheet addButtonWithTitle:@"香川"];
+    [actionsheet addButtonWithTitle:@"愛媛"];
+    [actionsheet addButtonWithTitle:@"高知"];
+    [actionsheet addButtonWithTitle:@"福岡"];
+    [actionsheet addButtonWithTitle:@"佐賀"];
+    [actionsheet addButtonWithTitle:@"長崎"];
+    [actionsheet addButtonWithTitle:@"熊本"];
+    [actionsheet addButtonWithTitle:@"大分"];
+    [actionsheet addButtonWithTitle:@"宮崎"];
+    [actionsheet addButtonWithTitle:@"鹿児島"];
+    [actionsheet addButtonWithTitle:@"沖縄"];
+    [actionsheet addButtonWithTitle:@"キャンセル"];
+    actionsheet.cancelButtonIndex = 48;
+    actionsheet.actionSheetStyle = UIActionSheetStyleDefault;
+    [actionsheet showInView:self.view];
+
+}
+
+- (IBAction)bashobutton:(UIButton *)sender {
+    [self productActionsheet];
+
+}
 @end
