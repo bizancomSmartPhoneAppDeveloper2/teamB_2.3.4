@@ -592,6 +592,18 @@
         tenki = 2;
     }
     [self selectImage];//天気に合うファーストビューを表示
+    
+   //選択データの保存
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:jstr forKey:@"initialLetters"];
+
+    NSString *str = [defaults objectForKey:@"initialLetters"];
+    
+    
+    
+    
+
 }
 
 @end

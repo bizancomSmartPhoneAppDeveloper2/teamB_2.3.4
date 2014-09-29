@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6B5A4E3F-0CCE-4896-B09C-32F53FE9DA40</string>
+	<key>IDESourceControlProjectName</key>
+	<string>huruhuruplayer</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>2D7EEB9BD1DA7AF78C630CA03151E6C6296237DB</key>
+		<string>https://github.com/bizancomSmartPhoneAppDeveloper2/teamB_2.3.4.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>huruhuruplayer.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>2D7EEB9BD1DA7AF78C630CA03151E6C6296237DB</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/bizancomSmartPhoneAppDeveloper2/teamB_2.3.4.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>2D7EEB9BD1DA7AF78C630CA03151E6C6296237DB</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2D7EEB9BD1DA7AF78C630CA03151E6C6296237DB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>huruhuruplayer</string>
+		</dict>
+	</array>
+</dict>
+</plist>
