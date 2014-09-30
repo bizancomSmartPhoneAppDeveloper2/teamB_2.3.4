@@ -15,6 +15,7 @@
 @implementation ViewController{
     AVAudioPlayer *orugoru_Player;
     AVAudioPlayer *mizunooto_Player;
+    AVAudioPlayer *kirakiraboshi_Player;
     UIProgressView * progress1;
    
     NSTimer *timer;
@@ -32,6 +33,10 @@
     NSString *user_todouhuken;
     UIActionSheet *sheet;
     NSString *url_tenki;
+    NSArray *orugoru_mp3;
+    NSString *orugoru_string;
+    NSInteger orugoru_number;
+    BOOL change_orugoru_down;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -68,11 +73,25 @@
     NSURL *url_1 = [[NSURL alloc] initFileURLWithPath:path1];
     mizunooto_Player = [[AVAudioPlayer alloc] initWithContentsOfURL:url_1 error:&error1];// auido を再生するプレイヤーを作成する
     // エラーが起きたとき
-    if ( error != nil )
+    if ( error1 != nil )
     {
-        NSLog(@"Error %@", [error localizedDescription]);
+        NSLog(@"Error %@", [error1 localizedDescription]);
     }
     [mizunooto_Player setDelegate:self];// 自分自身をデリゲートに設定
+    
+    NSError *error2 = nil;
+    NSString *path2 = [[NSBundle mainBundle] pathForResource:@"kirakiraboshi" ofType:@"mp3"];// 再生する audio ファイルのパスを取得
+    // パスから、再生するURLを作成する
+    NSURL *url_2 = [[NSURL alloc] initFileURLWithPath:path2];
+    kirakiraboshi_Player = [[AVAudioPlayer alloc] initWithContentsOfURL:url_2 error:&error2];// auido を再生するプレイヤーを作成する
+    // エラーが起きたとき
+    if ( error2 != nil )
+    {
+        NSLog(@"Error %@", [error2 localizedDescription]);
+    }
+    [kirakiraboshi_Player setDelegate:self];// 自分自身をデリゲートに設定
+    
+
 
     
     //プログレスバーの表示の調整
@@ -82,9 +101,15 @@
     progress1.transform = CGAffineTransformMakeScale( 1.0f, 10.0f ); // 横方向に1倍、縦方向に3倍して表示する
     progress1.progressTintColor = [UIColor whiteColor];
     //progress1.alpha = 0.5;
+    
     [self.view addSubview:progress1 ];
     progress1.hidden = YES;
-    self.basholabel.text = @"徳島県";
+    //self.basholabel.text = @"徳島県";
+    self.modorubuttonview.hidden = YES;
+    self.movinghitsujiimage.hidden = YES;
+    self.yurayuralabel.hidden = YES;
+    self.hitsujiview.hidden = NO;
+    self.basho.hidden = NO;
     
     //ユーザが選択した都道府県があればそれをデフォルトとして表示する、保存されている都道府県を取り出してラベルに表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -96,6 +121,9 @@
     idString = [defaults_1 stringForKey:@"initialLetters_1"];
     NSLog(@"%@",idString);
     url_tenki = idString;//後で生成するurlrequestのためにurl_tenkiに代入しておく
+    
+    orugoru_mp3 = [NSArray arrayWithObjects:@"デフォルト", @"キラキラ星", @"妖怪ウォッチ",@"プリキュア", nil];
+
 }
 
 
@@ -112,12 +140,15 @@
 
 
 - (IBAction)segmentswitch:(UISegmentedControl *)sender {
+    self.modorubuttonview.hidden = NO;
     if (sender.selectedSegmentIndex == 0) {
         switchnumber = 0;
         self.animationlabel.hidden = NO;
         [self animationlabelAnimation];
         progress1.hidden = NO;
         self.yurayuralabel.hidden = YES;
+        self.movinghitsujiimage.hidden = YES;
+        self.blackview.hidden = NO;
         if(progress1.progress > 0){
             [timer invalidate];
             [orugoru_Player play];
@@ -132,9 +163,14 @@
         NSLog(@"水の音");
         [self startMoving];
         progress1.hidden = YES;
-        self.yurayuralabel.hidden = NO;
-        [timer invalidate];
-        [orugoru_Player stop];
+        self.yurayuralabel.hidden = YES;
+        self.movinghitsujiimage.hidden = NO;
+        self.basho.hidden = YES;
+        self.blackview.hidden = NO;
+        self.hitsujiview.hidden = YES;
+
+        //[timer invalidate];
+        //[orugoru_Player stop];
 
     }
     
@@ -163,12 +199,14 @@
 
 //シェイクさせれるとこのメソッドが呼ばれる
 -(void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event{
-    if (switchnumber == 0) {
+        if (switchnumber == 0) {
         NSLog(@"シェイクされました");
         self.basho.hidden = YES;
         self.blackview.hidden = NO;
         [timer invalidate];
         progress1.hidden = NO;
+        self.modorubuttonview.hidden = NO;
+
         [progress1 setProgress:(progress1.progress+0.5) animated:YES ]; // アニメーション付きで進捗を指定
         [orugoru_Player play];
         [self timer];
@@ -179,9 +217,10 @@
 
 //傾けられるとこのメソッドが呼ばれる
 -(void)startMoving{
+    [timer invalidate];
+    [orugoru_Player stop];
     
-    self.basho.hidden = YES;
-    self.blackview.hidden = NO;
+    
     self.motionManager = [[CMMotionManager alloc]init];
     
     //1秒の60分の１に一回のペースで加速度の動きを検知する
@@ -194,14 +233,16 @@
                                                  CMAcceleration acceleration = accelerometerData.acceleration;
                                                  float centerY;
                                                  centerY = 284.0 -acceleration.y *284.0;
-                                                 if (centerY < 284) {
+                                                 if (centerY < 100 && centerY >= 0) {
                                                      [mizunooto_Player play];
-                                                  NSLog(@"ゆらゆらされました");}else if (centerY > 284){
+                                                  NSLog(@"ゆらゆらされました");}else if (centerY > 468 && centerY >= 568 ){
                                                          [mizunooto_Player play];
                                                                                                     }else if(centerY == 284){
                                                                                                         [mizunooto_Player stop];
                                                                                                     }
-                                                 self.yurayuralabel.center = CGPointMake(self.yurayuralabel.center.x, centerY);                                             }];
+                                                 self.yurayuralabel.center = CGPointMake(self.yurayuralabel.center.x, centerY);
+                                                 self.movinghitsujiimage.center= CGPointMake(self.yurayuralabel.center.x, centerY);
+                                             }];
    
 }
 
@@ -611,5 +652,68 @@
     
 
 }
+
+- (IBAction)modorubutton:(UIButton *)sender {
+    [self defaultpege];
+    self.basho.hidden = NO;
+}
+
+-(void)defaultpege{
+    [timer invalidate];
+    progress1.progress = 0;
+    [orugoru_Player stop];
+    [mizunooto_Player stop];
+    
+    //再生位置を頭(currentTime = 0)に戻す
+    orugoru_Player.currentTime = 0;
+    [self.view addSubview:progress1 ];
+    progress1.hidden = YES;
+    self.movinghitsujiimage.hidden = YES;
+    self.hitsujiview.hidden = NO;
+    self.yurayuralabel.hidden = YES;
+    self.modorubuttonview.hidden = YES;
+    self.blackview.hidden = YES;
+    [self bashoTenkiView];
+    
+    if (switchnumber == 1) {
+        self.animationlabel.hidden = YES;
+        self.yurayuralabel.hidden = NO;
+        [self startMoving];
+    }else if(switchnumber == 0){
+        self.animationlabel.hidden = NO;
+        self.yurayuralabel.hidden = YES;
+    }
+}
+- (IBAction)change_orugoru:(UIButton *)sender {
+    //orugoru_mp3配列から順番に取り出す
+    switch (orugoru_number) {
+        case 0:
+            orugoru_string = [orugoru_mp3 objectAtIndex:0];
+            NSLog(@"%@",orugoru_string);
+            orugoru_number++;
+
+            break;
+        case 1:
+            orugoru_string = [orugoru_mp3 objectAtIndex:1];
+            NSLog(@"%@",orugoru_string);
+            orugoru_number++;
+
+            break;
+        case 2:
+            orugoru_string = [orugoru_mp3 objectAtIndex:2];
+            NSLog(@"%@",orugoru_string);
+            orugoru_number++;
+            break;
+        case 3:
+            orugoru_string = [orugoru_mp3 objectAtIndex:3];
+            NSLog(@"%@",orugoru_string);
+            orugoru_number = 0;
+            break;
+        default:
+            break;
+    }
+    
+}
+
 
 @end
