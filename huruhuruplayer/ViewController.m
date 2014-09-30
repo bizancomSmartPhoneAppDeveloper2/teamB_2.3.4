@@ -312,11 +312,11 @@
                                                  CMAcceleration acceleration = accelerometerData.acceleration;
                                                  float centerY;
                                                  centerY = 284.0 -acceleration.y *284.0;
-                                                 if (centerY < 100 && centerY >= 0) {
+                                                 if (centerY < 254 && centerY >= 0) {
                                                      [namiotoB_Player stop];
                                                      namiotoB_Player.currentTime = 0;
                                                      [namiotoA_Player play];
-                                                  NSLog(@"ゆらゆらされました");}else if (centerY > 468 && centerY >= 568 ){
+                                                  NSLog(@"ゆらゆらされました");}else if (centerY > 314 && centerY >= 568 ){
                                                       [namiotoA_Player stop];
                                                       namiotoA_Player.currentTime = 0;
                                                       [namiotoB_Player play];
@@ -328,7 +328,7 @@
                                                                                                         namiotoB_Player.currentTime = 0;
                                                                                                     }
                                                  //self.yurayuralabel.center = CGPointMake(self.yurayuralabel.center.x, centerY);
-                                                 self.movinghitsujiimage.center= CGPointMake(self.movinghitsujiimage.center.x, self.movinghitsujiimage.center.y);
+                                                 self.movinghitsujiimage.center= CGPointMake(self.yurayuralabel.center.x, self.yurayuralabel.center.y);
                                              }];
    
 }
