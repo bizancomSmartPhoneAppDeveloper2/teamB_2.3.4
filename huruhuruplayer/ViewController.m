@@ -16,6 +16,9 @@
     AVAudioPlayer *orugoru_Player;
     AVAudioPlayer *mizunooto_Player;
     AVAudioPlayer *kirakiraboshi_Player;
+    AVAudioPlayer *youkaiwhotch_Player;
+    AVAudioPlayer *happinesspuricure_Player;
+
     UIProgressView * progress1;
    
     NSTimer *timer;
@@ -95,8 +98,30 @@
     }
     [kirakiraboshi_Player setDelegate:self];// 自分自身をデリゲートに設定
     
+    NSError *error3 = nil;
+    NSString *path3 = [[NSBundle mainBundle] pathForResource:@"youkaiwhotch" ofType:@"mp3"];// 再生する audio ファイルのパスを取得
+    // パスから、再生するURLを作成する
+    NSURL *url_3 = [[NSURL alloc] initFileURLWithPath:path3];
+    youkaiwhotch_Player = [[AVAudioPlayer alloc] initWithContentsOfURL:url_3 error:&error3];// auido を再生するプレイヤーを作成する
+    // エラーが起きたとき
+    if ( error3 != nil )
+    {
+        NSLog(@"Error %@", [error3 localizedDescription]);
+    }
+    [youkaiwhotch_Player setDelegate:self];// 自分自身をデリゲートに設定
 
-
+    NSError *error4 = nil;
+    NSString *path4 = [[NSBundle mainBundle] pathForResource:@"happinesspuricure" ofType:@"mp3"];// 再生する audio ファイルのパスを取得
+    // パスから、再生するURLを作成する
+    NSURL *url_4 = [[NSURL alloc] initFileURLWithPath:path4];
+    happinesspuricure_Player = [[AVAudioPlayer alloc] initWithContentsOfURL:url_4 error:&error4];// auido を再生するプレイヤーを作成する
+    // エラーが起きたとき
+    if ( error4 != nil )
+    {
+        NSLog(@"Error %@", [error4 localizedDescription]);
+    }
+    [happinesspuricure_Player setDelegate:self];// 自分自身をデリゲートに設定
+   
     
     //プログレスバーの表示の調整
     progress1 = [  [ UIProgressView alloc ] initWithProgressViewStyle:UIProgressViewStyleDefault ];
@@ -127,7 +152,7 @@
     NSLog(@"%@",idString);
     url_tenki = idString;//後で生成するurlrequestのためにurl_tenkiに代入しておく
     
-    orugoru_mp3 = [NSArray arrayWithObjects:@"デフォルト", @"キラキラ星", @"妖怪ウォッチ",@"プリキュア", nil];
+    orugoru_mp3 = [NSArray arrayWithObjects:@"キラキラ星", @"妖怪ウォッチ", @"プリキュア", @"デフォルト", nil];
 
 }
 
@@ -702,28 +727,39 @@
             orugoru_string = [orugoru_mp3 objectAtIndex:0];
             NSLog(@"%@",orugoru_string);
             orugoru_number++;
+            [orugoru_Player stop];
+            orugoru_Player.currentTime = 0;
+            [kirakiraboshi_Player play];
 
             break;
         case 1:
             orugoru_string = [orugoru_mp3 objectAtIndex:1];
             NSLog(@"%@",orugoru_string);
             orugoru_number++;
+            [kirakiraboshi_Player stop];
+            kirakiraboshi_Player.currentTime = 0;
+            [youkaiwhotch_Player play];
 
             break;
         case 2:
             orugoru_string = [orugoru_mp3 objectAtIndex:2];
             NSLog(@"%@",orugoru_string);
             orugoru_number++;
+            [youkaiwhotch_Player stop];
+            youkaiwhotch_Player.currentTime = 0;
+            [happinesspuricure_Player play];
             break;
         case 3:
             orugoru_string = [orugoru_mp3 objectAtIndex:3];
             NSLog(@"%@",orugoru_string);
             orugoru_number = 0;
+            [happinesspuricure_Player stop];
+            happinesspuricure_Player.currentTime = 0;
+            [orugoru_Player play];
             break;
         default:
             break;
     }
-    
 }
 
 
