@@ -199,6 +199,11 @@
     self.modorubuttonview.hidden = NO;
     if (sender.selectedSegmentIndex == 0) {
         switchnumber = 0;
+        [namiotoB_Player stop];
+        namiotoB_Player.currentTime = 0;
+        [namiotoA_Player stop];
+        namiotoA_Player.currentTime = 0;
+
         self.animationlabel.hidden = NO;
         [self animationlabelAnimation];
         progress1.hidden = NO;
@@ -208,11 +213,7 @@
         self.change_orugarulabel.hidden = NO;
         //[mizunooto_Player stop];
         //mizunooto_Player.currentTime = 0;
-        [namiotoB_Player stop];
-        namiotoB_Player.currentTime = 0;
-        [namiotoA_Player stop];
-        namiotoA_Player.currentTime = 0;
-
+        
         if(progress1.progress > 0){
             [timer invalidate];
             [orugoru_Player play];
@@ -331,8 +332,8 @@
                                                                             namiotoA_Player.currentTime = 0;
                                                                                                         namiotoB_Player.currentTime = 0;
                                                                                                     }
-                                                 //self.yurayuralabel.center = CGPointMake(self.yurayuralabel.center.x, centerY);
-                                                 self.movinghitsujiimage.center= CGPointMake(self.yurayuralabel.center.x,self.yurayuralabel.center.y);
+                                                 self.yurayuralabel.center = CGPointMake(self.yurayuralabel.center.x, centerY);
+                                                 self.movinghitsujiimage.center= CGPointMake(self.yurayuralabel.center.x,centerY);
                                              }];
    
 }
@@ -761,6 +762,14 @@
     progress1.progress = 0;
     [orugoru_Player stop];
     [mizunooto_Player stop];
+    [namiotoB_Player stop];
+    [kirakiraboshi_Player stop];
+    [youkaiwhotch_Player stop];
+    [happinesspuricure_Player stop];
+    orugoru_Player.currentTime = 0;
+    kirakiraboshi_Player.currentTime = 0;
+    youkaiwhotch_Player.currentTime = 0;
+    happinesspuricure_Player.currentTime = 0;
     
     //再生位置を頭(currentTime = 0)に戻す
     orugoru_Player.currentTime = 0;
