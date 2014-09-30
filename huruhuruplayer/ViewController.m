@@ -29,19 +29,23 @@
     NSString *tenkistring;
     UIActionSheet *actionsheet;
     NSString *idString;
-    BOOL bashoButtonDown;
     NSString *user_todouhuken;
     UIActionSheet *sheet;
     NSString *url_tenki;
     NSArray *orugoru_mp3;
     NSString *orugoru_string;
     NSInteger orugoru_number;
-    BOOL change_orugoru_down;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    
+    if (user_todouhuken == nil) {
+        self.basholabel.text = @"徳島県";
+        NSLog(@"徳島がデフォルトです");
+        idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=360010";
+        [self bashoTenkiView];
+        
+    }else
     [self bashoTenkiView];
 }
     
@@ -110,6 +114,7 @@
     self.yurayuralabel.hidden = YES;
     self.hitsujiview.hidden = NO;
     self.basho.hidden = NO;
+    self.change_orugarulabel.hidden = YES;
     
     //ユーザが選択した都道府県があればそれをデフォルトとして表示する、保存されている都道府県を取り出してラベルに表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -149,6 +154,8 @@
         self.yurayuralabel.hidden = YES;
         self.movinghitsujiimage.hidden = YES;
         self.blackview.hidden = NO;
+        self.change_orugarulabel.hidden = NO;
+
         if(progress1.progress > 0){
             [timer invalidate];
             [orugoru_Player play];
@@ -168,6 +175,8 @@
         self.basho.hidden = YES;
         self.blackview.hidden = NO;
         self.hitsujiview.hidden = YES;
+        self.change_orugarulabel.hidden = YES;
+
 
         //[timer invalidate];
         //[orugoru_Player stop];
@@ -206,6 +215,8 @@
         [timer invalidate];
         progress1.hidden = NO;
         self.modorubuttonview.hidden = NO;
+        self.change_orugarulabel.hidden = NO;
+
 
         [progress1 setProgress:(progress1.progress+0.5) animated:YES ]; // アニメーション付きで進捗を指定
         [orugoru_Player play];
@@ -313,7 +324,6 @@
 
 //アクションシートのボタンで都道府県を選択されたらこのメソッドが呼ばれる
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    bashoButtonDown = YES;//場所ボタンが押されたかどうか
     
     //アクションシートで押されたボタンのインデクス
     //idstringは天気APIで使うURL,都道府県によって異なるURL
