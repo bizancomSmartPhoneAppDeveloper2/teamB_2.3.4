@@ -683,6 +683,7 @@
     self.yurayuralabel.hidden = YES;
     self.modorubuttonview.hidden = YES;
     self.blackview.hidden = YES;
+    self.change_orugarulabel.hidden = YES;
     [self bashoTenkiView];
     
     if (switchnumber == 1) {
