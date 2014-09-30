@@ -18,7 +18,8 @@
     AVAudioPlayer *kirakiraboshi_Player;
     AVAudioPlayer *youkaiwhotch_Player;
     AVAudioPlayer *happinesspuricure_Player;
-
+    AVAudioPlayer *namiotoA_Player;
+    AVAudioPlayer *namiotoB_Player;
     UIProgressView * progress1;
    
     NSTimer *timer;
@@ -38,6 +39,7 @@
     NSArray *orugoru_mp3;
     NSString *orugoru_string;
     NSInteger orugoru_number;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -123,6 +125,29 @@
     }
     [happinesspuricure_Player setDelegate:self];// 自分自身をデリゲートに設定
    
+    NSError *error5 = nil;
+    NSString *path5 = [[NSBundle mainBundle] pathForResource:@"namiotoA" ofType:@"mp3"];// 再生する audio ファイルのパスを取得
+    // パスから、再生するURLを作成する
+    NSURL *url_5 = [[NSURL alloc] initFileURLWithPath:path5];
+    namiotoA_Player = [[AVAudioPlayer alloc] initWithContentsOfURL:url_5 error:&error5];// auido を再生するプレイヤーを作成する
+    // エラーが起きたとき
+    if ( error5 != nil )
+    {
+        NSLog(@"Error %@", [error5 localizedDescription]);
+    }
+    [namiotoA_Player setDelegate:self];// 自分自身をデリゲートに設定
+    
+    NSError *error6 = nil;
+    NSString *path6 = [[NSBundle mainBundle] pathForResource:@"namiotoB" ofType:@"mp3"];// 再生する audio ファイルのパスを取得
+    // パスから、再生するURLを作成する
+    NSURL *url_6 = [[NSURL alloc] initFileURLWithPath:path6];
+    namiotoB_Player = [[AVAudioPlayer alloc] initWithContentsOfURL:url_6 error:&error6];// auido を再生するプレイヤーを作成する
+    // エラーが起きたとき
+    if ( error6 != nil )
+    {
+        NSLog(@"Error %@", [error6 localizedDescription]);
+    }
+    [namiotoB_Player setDelegate:self];// 自分自身をデリゲートに設定
     
     //プログレスバーの表示の調整
     progress1 = [  [ UIProgressView alloc ] initWithProgressViewStyle:UIProgressViewStyleDefault ];
@@ -181,6 +206,12 @@
         self.movinghitsujiimage.hidden = YES;
         self.blackview.hidden = NO;
         self.change_orugarulabel.hidden = NO;
+        //[mizunooto_Player stop];
+        //mizunooto_Player.currentTime = 0;
+        [namiotoB_Player stop];
+        namiotoB_Player.currentTime = 0;
+        [namiotoA_Player stop];
+        namiotoA_Player.currentTime = 0;
 
         if(progress1.progress > 0){
             [timer invalidate];
@@ -191,7 +222,10 @@
         }
     else if(sender.selectedSegmentIndex == 1){
         switchnumber = 1;
-        
+        [namiotoB_Player stop];
+        namiotoB_Player.currentTime = 0;
+        [namiotoA_Player stop];
+        namiotoA_Player.currentTime = 0;
         //[self yurayuralabelAnimation];
         NSLog(@"水の音");
         [self startMoving];
@@ -227,14 +261,22 @@
     progress1.progress = (progress1.progress-0.1);
     if (progress1.progress == 0) {
         [orugoru_Player stop];
+        [kirakiraboshi_Player stop];
+        [youkaiwhotch_Player stop];
+        [happinesspuricure_Player stop];
         NSLog(@"音楽停止");
         [timer invalidate];
-    }
+            }
 }
 
 //シェイクさせれるとこのメソッドが呼ばれる
 -(void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event{
-        if (switchnumber == 0) {
+    [namiotoB_Player stop];
+    namiotoB_Player.currentTime = 0;
+    [namiotoA_Player stop];
+    namiotoA_Player.currentTime = 0;
+    
+    if (switchnumber == 0) {
         NSLog(@"シェイクされました");
         self.basho.hidden = YES;
         self.blackview.hidden = NO;
@@ -271,14 +313,22 @@
                                                  float centerY;
                                                  centerY = 284.0 -acceleration.y *284.0;
                                                  if (centerY < 100 && centerY >= 0) {
-                                                     [mizunooto_Player play];
+                                                     [namiotoB_Player stop];
+                                                     namiotoB_Player.currentTime = 0;
+                                                     [namiotoA_Player play];
                                                   NSLog(@"ゆらゆらされました");}else if (centerY > 468 && centerY >= 568 ){
-                                                         [mizunooto_Player play];
-                                                                                                    }else if(centerY == 284){
-                                                                                                        [mizunooto_Player stop];
+                                                      [namiotoA_Player stop];
+                                                      namiotoA_Player.currentTime = 0;
+                                                      [namiotoB_Player play];
+                                                    NSLog(@"ゆらゆらされました");
+                                                                                                    }else if(centerY >= 274 &&centerY <= 294){
+                                                                                                [namiotoA_Player stop];
+                                                                                                        [namiotoB_Player stop];
+                                                                            namiotoA_Player.currentTime = 0;
+                                                                                                        namiotoB_Player.currentTime = 0;
                                                                                                     }
-                                                 self.yurayuralabel.center = CGPointMake(self.yurayuralabel.center.x, centerY);
-                                                 self.movinghitsujiimage.center= CGPointMake(self.yurayuralabel.center.x, centerY);
+                                                 //self.yurayuralabel.center = CGPointMake(self.yurayuralabel.center.x, centerY);
+                                                 self.movinghitsujiimage.center= CGPointMake(self.movinghitsujiimage.center.x, self.movinghitsujiimage.center.y);
                                              }];
    
 }
@@ -731,44 +781,45 @@
 }
 - (IBAction)change_orugoru:(UIButton *)sender {
     //orugoru_mp3配列から順番に取り出す
-    switch (orugoru_number) {
-        case 0:
-            orugoru_string = [orugoru_mp3 objectAtIndex:0];
-            NSLog(@"%@",orugoru_string);
-            orugoru_number++;
-            [orugoru_Player stop];
-            orugoru_Player.currentTime = 0;
-            [kirakiraboshi_Player play];
-
-            break;
-        case 1:
-            orugoru_string = [orugoru_mp3 objectAtIndex:1];
-            NSLog(@"%@",orugoru_string);
-            orugoru_number++;
-            [kirakiraboshi_Player stop];
-            kirakiraboshi_Player.currentTime = 0;
-            [youkaiwhotch_Player play];
-
-            break;
+    if (orugoru_Player.playing || kirakiraboshi_Player.playing || youkaiwhotch_Player.playing || happinesspuricure_Player.playing) {
+        switch (orugoru_number) {
+            case 0:
+                orugoru_string = [orugoru_mp3 objectAtIndex:0];
+                NSLog(@"%@",orugoru_string);
+                orugoru_number++;
+                [orugoru_Player stop];
+                orugoru_Player.currentTime = 0;
+                [kirakiraboshi_Player play];
+                break;
+            case 1:
+                orugoru_string = [orugoru_mp3 objectAtIndex:1];
+                NSLog(@"%@",orugoru_string);
+                orugoru_number++;
+                [kirakiraboshi_Player stop];
+                kirakiraboshi_Player.currentTime = 0;
+                [youkaiwhotch_Player play];
+                break;
         case 2:
-            orugoru_string = [orugoru_mp3 objectAtIndex:2];
-            NSLog(@"%@",orugoru_string);
-            orugoru_number++;
-            [youkaiwhotch_Player stop];
-            youkaiwhotch_Player.currentTime = 0;
-            [happinesspuricure_Player play];
-            break;
+                orugoru_string = [orugoru_mp3 objectAtIndex:2];
+                NSLog(@"%@",orugoru_string);
+                orugoru_number++;
+                [youkaiwhotch_Player stop];
+                youkaiwhotch_Player.currentTime = 0;
+                [happinesspuricure_Player play];
+                break;
         case 3:
-            orugoru_string = [orugoru_mp3 objectAtIndex:3];
-            NSLog(@"%@",orugoru_string);
-            orugoru_number = 0;
-            [happinesspuricure_Player stop];
-            happinesspuricure_Player.currentTime = 0;
-            [orugoru_Player play];
-            break;
+                orugoru_string = [orugoru_mp3 objectAtIndex:3];
+                NSLog(@"%@",orugoru_string);
+                orugoru_number = 0;
+                [happinesspuricure_Player stop];
+                happinesspuricure_Player.currentTime = 0;
+                [orugoru_Player play];
+                break;
         default:
             break;
-    }
+            }
+        }
+
 }
 
 
