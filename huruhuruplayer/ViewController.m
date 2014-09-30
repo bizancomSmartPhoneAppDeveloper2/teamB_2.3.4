@@ -312,14 +312,18 @@
                                                  CMAcceleration acceleration = accelerometerData.acceleration;
                                                  float centerY;
                                                  centerY = 284.0 -acceleration.y *284.0;
-                                                 if (centerY < 254 && centerY >= 0) {
+                                                 float centerX;
+                                                 centerX = 160.0 - acceleration.x *160.0;
+                                                 if (centerY < 274 && centerY >= 0) {
+                                                     [namiotoA_Player play];
                                                      [namiotoB_Player stop];
                                                      namiotoB_Player.currentTime = 0;
-                                                     [namiotoA_Player play];
-                                                  NSLog(@"ゆらゆらされました");}else if (centerY > 314 && centerY >= 568 ){
+                                                     
+                                                  NSLog(@"ゆらゆらされました");}else if (centerY > 294 && centerY >= 568 ){
+                                                      [namiotoB_Player play];
                                                       [namiotoA_Player stop];
                                                       namiotoA_Player.currentTime = 0;
-                                                      [namiotoB_Player play];
+                                                      
                                                     NSLog(@"ゆらゆらされました");
                                                                                                     }else if(centerY >= 274 &&centerY <= 294){
                                                                                                 [namiotoA_Player stop];
@@ -328,7 +332,7 @@
                                                                                                         namiotoB_Player.currentTime = 0;
                                                                                                     }
                                                  //self.yurayuralabel.center = CGPointMake(self.yurayuralabel.center.x, centerY);
-                                                 self.movinghitsujiimage.center= CGPointMake(self.yurayuralabel.center.x, self.yurayuralabel.center.y);
+                                                 self.movinghitsujiimage.center= CGPointMake(self.yurayuralabel.center.x,self.yurayuralabel.center.y);
                                              }];
    
 }
