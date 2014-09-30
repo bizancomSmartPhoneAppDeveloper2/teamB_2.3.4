@@ -59,6 +59,7 @@
     cx = 0;
     cy = 0;
     tenki = 0;
+    orugoru_Player = 0;
     
     //タイマースタートと同時に効果音鳴らす
     NSError *error = nil;
@@ -691,6 +692,14 @@
 - (IBAction)modorubutton:(UIButton *)sender {
     [self defaultpege];
     self.basho.hidden = NO;
+    [orugoru_Player stop];
+    orugoru_Player.currentTime = 0;
+    [kirakiraboshi_Player stop];
+    kirakiraboshi_Player.currentTime = 0;
+    [youkaiwhotch_Player stop];
+    youkaiwhotch_Player.currentTime = 0;
+    [happinesspuricure_Player stop];
+    happinesspuricure_Player.currentTime = 0;
 }
 
 -(void)defaultpege{
