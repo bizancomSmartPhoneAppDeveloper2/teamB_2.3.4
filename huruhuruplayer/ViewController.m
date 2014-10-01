@@ -218,18 +218,21 @@
     self.modorubuttonview.hidden = NO;
     if (sender.selectedSegmentIndex == 0) {
         switchnumber = 0;
+        progress1.progress = 0;
+        [self.view addSubview:progress1 ];
+        
         [namiotoB_Player stop];
         namiotoB_Player.currentTime = 0;
         [namiotoA_Player stop];
         namiotoA_Player.currentTime = 0;
-
-        self.animationlabel.hidden = NO;
         [self animationlabelAnimation];
         progress1.hidden = NO;
         self.yurayuralabel.hidden = YES;
         self.movinghitsujiimage.hidden = YES;
         self.blackview.hidden = NO;
         self.change_orugarulabel.hidden = NO;
+        self.animationlabel.hidden = NO;
+        self.hitsujiview.hidden = YES;
         //[mizunooto_Player stop];
         //mizunooto_Player.currentTime = 0;
         
@@ -242,6 +245,7 @@
         }
     else if(sender.selectedSegmentIndex == 1){
         switchnumber = 1;
+        nowPlaying = nil;
         [self musicStop];
         //[self yurayuralabelAnimation];
         NSLog(@"水の音");
@@ -263,11 +267,11 @@
 }
 
 
-//タイマーで１秒ずつ引いて行く
+//タイマーで2秒ずつ引いて行く
 -(void)timer{
-    //1秒ごとにこのタイマー呼ばれてcountdownメソッドを繰り返し実行します
+    //2秒ごとにこのタイマー呼ばれてcountdownメソッドを繰り返し実行します
        timer = [NSTimer
-             scheduledTimerWithTimeInterval:2
+             scheduledTimerWithTimeInterval:60
              target: self
              selector:@selector(countdown)
              userInfo:nil
@@ -292,6 +296,7 @@
     namiotoB_Player.currentTime = 0;
     [namiotoA_Player stop];
     namiotoA_Player.currentTime = 0;
+    [self.view addSubview:progress1 ];
     
     if (switchnumber == 0) {
         NSLog(@"シェイクされました");
@@ -386,6 +391,9 @@
 //}
 
 -(void)animationlabelAnimation{
+    cx = 0;
+    cy = 0;
+
     UIViewAnimationOptions animeOptions =
     UIViewAnimationOptionCurveEaseInOut
     | UIViewAnimationOptionAutoreverse
@@ -776,18 +784,20 @@
 
 - (IBAction)modorubutton:(UIButton *)sender {
     [self defaultpege];
-    self.basho.hidden = NO;
+    
     [self musicStop];
 }
 
 -(void)defaultpege{
     [timer invalidate];
     progress1.progress = 0;
+    nowPlaying = nil;
     [self musicStop];
-    [self.view addSubview:progress1 ];
+    
     progress1.hidden = YES;
     self.movinghitsujiimage.hidden = YES;
     self.hitsujiview.hidden = NO;
+    self.basho.hidden = NO;
     self.yurayuralabel.hidden = YES;
     self.modorubuttonview.hidden = YES;
     self.blackview.hidden = YES;
@@ -801,6 +811,7 @@
     }else if(switchnumber == 0){
         self.animationlabel.hidden = NO;
         self.yurayuralabel.hidden = YES;
+        [self animationlabelAnimation];
     }
 }
 - (IBAction)change_orugoru:(UIButton *)sender {
@@ -876,5 +887,6 @@
     youkaiwhotch_Player.currentTime = 0;
     [happinesspuricure_Player stop];
     happinesspuricure_Player.currentTime = 0;
+    nowPlaying.currentTime = 0;
 }
 @end
