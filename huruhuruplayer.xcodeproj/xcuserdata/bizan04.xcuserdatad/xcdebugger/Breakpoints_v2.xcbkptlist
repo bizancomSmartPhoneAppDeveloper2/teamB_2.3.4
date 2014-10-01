@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "huruhuruplayer/ViewController.m"
-            timestampString = "433753438.143761"
+            timestampString = "433840388.818788"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "419"
-            endingLineNumber = "419"
-            landmarkName = "-actionSheet:clickedButtonAtIndex:"
+            startingLineNumber = "428"
+            endingLineNumber = "428"
+            landmarkName = "-bashobutton:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "huruhuruplayer/ViewController.m"
-            timestampString = "433753438.143761"
+            timestampString = "433840388.818788"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "692"
-            endingLineNumber = "692"
+            startingLineNumber = "702"
+            endingLineNumber = "702"
             landmarkName = "-actionSheet:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>

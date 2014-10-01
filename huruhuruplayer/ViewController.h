@@ -25,5 +25,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *modorubuttonview;
 - (IBAction)change_orugoru:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *change_orugarulabel;
+
+@property (nonatomic, strong) UIDynamicAnimator *animator;
+@property (nonatomic, strong) UIGravityBehavior *gravity;
+@property (nonatomic, strong) UICollisionBehavior *collision;
 @end
 

@@ -20,6 +20,7 @@
     AVAudioPlayer *happinesspuricure_Player;
     AVAudioPlayer *namiotoA_Player;
     AVAudioPlayer *namiotoB_Player;
+    AVAudioPlayer *nowPlaying;
     UIProgressView * progress1;
    
     NSTimer *timer;
@@ -39,6 +40,9 @@
     NSArray *orugoru_mp3;
     NSString *orugoru_string;
     NSInteger orugoru_number;
+    
+    UIImageView *img;
+
     
 }
 
@@ -151,7 +155,7 @@
     
     //プログレスバーの表示の調整
     progress1 = [  [ UIProgressView alloc ] initWithProgressViewStyle:UIProgressViewStyleDefault ];
-    progress1.frame = CGRectMake( 10, 450, 300, 300 );
+    progress1.frame = CGRectMake( 10, 530, 300, 300 );
     //progress1.transform = CGAffineTransformMakeRotation( -90.0f * M_PI / 180.0f ); // 反時計回りに90度回転して表示する
     progress1.transform = CGAffineTransformMakeScale( 1.0f, 10.0f ); // 横方向に1倍、縦方向に3倍して表示する
     progress1.progressTintColor = [UIColor whiteColor];
@@ -179,6 +183,21 @@
     url_tenki = idString;//後で生成するurlrequestのためにurl_tenkiに代入しておく
     
     orugoru_mp3 = [NSArray arrayWithObjects:@"キラキラ星", @"妖怪ウォッチ", @"プリキュア", @"デフォルト", nil];
+    
+    
+    //アニメーターを設定
+    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    
+    //衝突判定
+    self.collision = [[UICollisionBehavior alloc] initWithItems:nil];
+    self.collision.translatesReferenceBoundsIntoBoundary = YES;
+    
+    //重力を設定
+    self.gravity = [[UIGravityBehavior alloc] initWithItems:nil];
+    
+    [self.animator addBehavior:self.gravity];
+    [self.animator addBehavior:self.collision];
+
 
 }
 
@@ -223,10 +242,7 @@
         }
     else if(sender.selectedSegmentIndex == 1){
         switchnumber = 1;
-        [namiotoB_Player stop];
-        namiotoB_Player.currentTime = 0;
-        [namiotoA_Player stop];
-        namiotoA_Player.currentTime = 0;
+        [self musicStop];
         //[self yurayuralabelAnimation];
         NSLog(@"水の音");
         [self startMoving];
@@ -288,7 +304,11 @@
 
 
         [progress1 setProgress:(progress1.progress+0.5) animated:YES ]; // アニメーション付きで進捗を指定
-        [orugoru_Player play];
+        if(nowPlaying == nil){
+            [orugoru_Player play];
+        }else{
+            [nowPlaying play];
+        }
         [self timer];
     }else
         nil;
@@ -299,6 +319,13 @@
 -(void)startMoving{
     [timer invalidate];
     [orugoru_Player stop];
+    orugoru_Player.currentTime = 0;
+    [kirakiraboshi_Player stop];
+    kirakiraboshi_Player.currentTime = 0;
+    [youkaiwhotch_Player stop];
+    youkaiwhotch_Player.currentTime = 0;
+    [happinesspuricure_Player stop];
+    happinesspuricure_Player.currentTime = 0;
     
     
     self.motionManager = [[CMMotionManager alloc]init];
@@ -319,12 +346,12 @@
                                                      [namiotoA_Player play];
                                                      [namiotoB_Player stop];
                                                      namiotoB_Player.currentTime = 0;
-                                                     
+                                                     [self hitsuji_yurayuraAnimation];
                                                   NSLog(@"ゆらゆらされました");}else if (centerY > 294 && centerY >= 568 ){
                                                       [namiotoB_Player play];
                                                       [namiotoA_Player stop];
                                                       namiotoA_Player.currentTime = 0;
-                                                      
+                                                      [self hitsuji_yurayuraAnimation];
                                                     NSLog(@"ゆらゆらされました");
                                                                                                     }else if(centerY >= 274 &&centerY <= 294){
                                                                                                 [namiotoA_Player stop];
@@ -332,8 +359,8 @@
                                                                             namiotoA_Player.currentTime = 0;
                                                                                                         namiotoB_Player.currentTime = 0;
                                                                                                     }
-                                                 self.yurayuralabel.center = CGPointMake(self.yurayuralabel.center.x, centerY);
-                                                 self.movinghitsujiimage.center= CGPointMake(self.yurayuralabel.center.x,centerY);
+                                                 //self.yurayuralabel.center = CGPointMake(self.yurayuralabel.center.x, centerY);
+                                                 //self.movinghitsujiimage.center= CGPointMake(self.yurayuralabel.center.x,centerY);
                                              }];
    
 }
@@ -413,6 +440,7 @@
             idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=016010";
             //id = 016010;
             self.basholabel.text = @"北海道";//ボタンに重ねてあるラベルに選択された都道府県名を表示する
+            //user_todouhuken = @"北海道";
             break;
         case 1:
             idString = @"http://weather.livedoor.com/forecast/webservice/json/v1?city=020010";
@@ -696,10 +724,12 @@
     [defaults_1 setObject:idString forKey:@"initialLetters_1"];
     
     NSLog(@"%@",idString);
+    NSLog(@"%@",user_todouhuken);
 }
 
 -(void)bashoTenkiView{
     //都道府県がユーザに選択されていない場合はデフォルト徳島県を適用
+    url_tenki = idString;
     NSLog(@"%@",user_todouhuken);
    
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url_tenki]];
@@ -747,32 +777,13 @@
 - (IBAction)modorubutton:(UIButton *)sender {
     [self defaultpege];
     self.basho.hidden = NO;
-    [orugoru_Player stop];
-    orugoru_Player.currentTime = 0;
-    [kirakiraboshi_Player stop];
-    kirakiraboshi_Player.currentTime = 0;
-    [youkaiwhotch_Player stop];
-    youkaiwhotch_Player.currentTime = 0;
-    [happinesspuricure_Player stop];
-    happinesspuricure_Player.currentTime = 0;
+    [self musicStop];
 }
 
 -(void)defaultpege{
     [timer invalidate];
     progress1.progress = 0;
-    [orugoru_Player stop];
-    [mizunooto_Player stop];
-    [namiotoB_Player stop];
-    [kirakiraboshi_Player stop];
-    [youkaiwhotch_Player stop];
-    [happinesspuricure_Player stop];
-    orugoru_Player.currentTime = 0;
-    kirakiraboshi_Player.currentTime = 0;
-    youkaiwhotch_Player.currentTime = 0;
-    happinesspuricure_Player.currentTime = 0;
-    
-    //再生位置を頭(currentTime = 0)に戻す
-    orugoru_Player.currentTime = 0;
+    [self musicStop];
     [self.view addSubview:progress1 ];
     progress1.hidden = YES;
     self.movinghitsujiimage.hidden = YES;
@@ -794,46 +805,76 @@
 }
 - (IBAction)change_orugoru:(UIButton *)sender {
     //orugoru_mp3配列から順番に取り出す
+        
     if (orugoru_Player.playing || kirakiraboshi_Player.playing || youkaiwhotch_Player.playing || happinesspuricure_Player.playing) {
-        switch (orugoru_number) {
+         if (progress1.progress > 0) {
+        switch (orugoru_number%4) {
             case 0:
                 orugoru_string = [orugoru_mp3 objectAtIndex:0];
                 NSLog(@"%@",orugoru_string);
                 orugoru_number++;
-                [orugoru_Player stop];
-                orugoru_Player.currentTime = 0;
+                [self musicStop];
                 [kirakiraboshi_Player play];
+                nowPlaying = kirakiraboshi_Player;
                 break;
             case 1:
                 orugoru_string = [orugoru_mp3 objectAtIndex:1];
                 NSLog(@"%@",orugoru_string);
                 orugoru_number++;
-                [kirakiraboshi_Player stop];
-                kirakiraboshi_Player.currentTime = 0;
+                [self musicStop];
                 [youkaiwhotch_Player play];
+                nowPlaying = youkaiwhotch_Player;
                 break;
         case 2:
                 orugoru_string = [orugoru_mp3 objectAtIndex:2];
                 NSLog(@"%@",orugoru_string);
                 orugoru_number++;
-                [youkaiwhotch_Player stop];
-                youkaiwhotch_Player.currentTime = 0;
+                [self musicStop];
                 [happinesspuricure_Player play];
+                nowPlaying = happinesspuricure_Player;
                 break;
         case 3:
                 orugoru_string = [orugoru_mp3 objectAtIndex:3];
                 NSLog(@"%@",orugoru_string);
                 orugoru_number = 0;
-                [happinesspuricure_Player stop];
-                happinesspuricure_Player.currentTime = 0;
+                [self musicStop];
                 [orugoru_Player play];
+                nowPlaying = orugoru_Player;
                 break;
         default:
             break;
             }
+         }
         }
-
+    
 }
 
+-(void)hitsuji_yurayuraAnimation{
+    //x座標はランダムで。
+    int posX = random() % 320;
+    int posY = random() % 320;
+    //ワンプラロゴの画像のUIImagevViewを作成
+    img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",@"www.png"]]];
+    //img.center = CGPointMake(posX, 0);
+    img.frame = CGRectMake(posX, posY, 100, 100);
+    
+    [self.view addSubview:img];         //ロゴ画像を表示
+    [self.gravity addItem:img];         //ロゴ画像に重力を反映
+    [self.collision addItem:img];       //ロゴ画像に衝突判定を反映
+}
 
+-(void)musicStop{
+    [namiotoB_Player stop];
+    namiotoB_Player.currentTime = 0;
+    [namiotoA_Player stop];
+    namiotoA_Player.currentTime = 0;
+    [orugoru_Player stop];
+    orugoru_Player.currentTime = 0;
+    [kirakiraboshi_Player stop];
+    kirakiraboshi_Player.currentTime = 0;
+    [youkaiwhotch_Player stop];
+    youkaiwhotch_Player.currentTime = 0;
+    [happinesspuricure_Player stop];
+    happinesspuricure_Player.currentTime = 0;
+}
 @end
