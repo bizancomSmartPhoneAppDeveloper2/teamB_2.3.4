@@ -278,6 +278,10 @@
         namiotoB_Player.currentTime = 0;
         [namiotoA_Player stop];
         namiotoA_Player.currentTime = 0;
+        [awaA_Player stop];
+        awaA_Player.currentTime = 0;
+        [awaB_Player stop];
+        awaB_Player.currentTime = 0;
         [self animationlabelAnimation];
         progress1.hidden = NO;
         self.yurayuralabel.hidden = YES;
@@ -428,10 +432,10 @@
                                                      unkoukaonPlaying.currentTime = 0;
                                                      
                                                   NSLog(@"ゆらゆらされました");}else if (centerY > 294 && centerY >= 568 ){
-                                                      koukaonPlayingB = namiotoB_Player;
-                                                      unkoukaonPlayingB = namiotoA_Player;
-                                                      [koukaonPlaying play];
-                                                      [unkoukaonPlaying stop];
+                                                      //koukaonPlayingB = namiotoB_Player;
+                                                      //unkoukaonPlayingB = namiotoA_Player;
+                                                      [koukaonPlayingB play];
+                                                      [unkoukaonPlayingB stop];
                                                       unkoukaonPlaying.currentTime = 0;
                                                       ;
                                                     NSLog(@"ゆらゆらされました");
