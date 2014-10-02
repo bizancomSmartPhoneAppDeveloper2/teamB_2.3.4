@@ -31,7 +31,6 @@
 @property (nonatomic, strong) UICollisionBehavior *collision;
 @property NSTimeInterval timestampBegan;
 @property CGPoint pointBegan;
-- (IBAction)changekoukaon:(UIButton *)sender;
-@property (weak, nonatomic) IBOutlet UIButton *koukaonchangelabel;
+
 @end
 

@@ -23,11 +23,7 @@
     AVAudioPlayer *awaA_Player;
     AVAudioPlayer *awaB_Player;
     AVAudioPlayer *nowPlaying;
-    AVAudioPlayer *koukaonPlaying;
-    AVAudioPlayer *unkoukaonPlaying;
-    AVAudioPlayer *koukaonPlayingB;
-    AVAudioPlayer *unkoukaonPlayingB;
-
+    
     UIProgressView * progress1;
    
     NSTimer *timer;
@@ -245,13 +241,6 @@
     [_collision addBoundaryWithIdentifier:@"bottom"
                                 fromPoint:CGPointMake(w, 0)
                                   toPoint:CGPointMake(w, h)];
-    
-    koukaonPlaying = namiotoA_Player;
-    unkoukaonPlaying = namiotoB_Player;
-    koukaonPlayingB = namiotoB_Player;
-    unkoukaonPlayingB = namiotoA_Player;
-    
-
 }
 
 
@@ -290,7 +279,6 @@
         self.change_orugarulabel.hidden = NO;
         self.animationlabel.hidden = NO;
         self.hitsujiview.hidden = YES;
-        self.koukaonchangelabel.hidden = YES;
 
 
         //[mizunooto_Player stop];
@@ -319,10 +307,6 @@
         self.blackview.hidden = NO;
         self.hitsujiview.hidden = YES;
         self.change_orugarulabel.hidden = YES;
-        self.koukaonchangelabel.hidden = NO;
-
-        
-
 
         //[timer invalidate];
         //[orugoru_Player stop];
@@ -425,22 +409,20 @@
                                                  float centerX;
                                                  centerX = 160.0 - acceleration.x *160.0;
                                                  if (centerY < 274 && centerY >= 0) {
-                                                     //koukaonPlaying = namiotoA_Player;
-                                                     //unkoukaonPlaying = namiotoB_Player;
-                                                     [koukaonPlaying play];
-                                                     [unkoukaonPlaying stop];
-                                                     unkoukaonPlaying.currentTime = 0;
+                                                     [namiotoA_Player play];
+                                                     [namiotoB_Player stop];
+                                                     namiotoB_Player.currentTime = 0;
                                                      
                                                   NSLog(@"ゆらゆらされました");}else if (centerY > 294 && centerY >= 568 ){
                                                       //koukaonPlayingB = namiotoB_Player;
                                                       //unkoukaonPlayingB = namiotoA_Player;
-                                                      [koukaonPlayingB play];
-                                                      [unkoukaonPlayingB stop];
-                                                      unkoukaonPlaying.currentTime = 0;
+                                                      [namiotoB_Player play];
+                                                      [namiotoA_Player stop];
+                                                      namiotoA_Player.currentTime = 0;
                                                       ;
                                                     NSLog(@"ゆらゆらされました");
                                                                                                     }else if(centerY >= 274 &&centerY <= 294){
-                                                                                                [koukaonPlaying stop];
+                                                                                                [namiotoA_Player stop];
                                                                                                         [namiotoB_Player stop];
                                                                             namiotoA_Player.currentTime = 0;
                                                                                                         namiotoB_Player.currentTime = 0;
@@ -887,7 +869,6 @@
     self.modorubuttonview.hidden = YES;
     self.blackview.hidden = YES;
     self.change_orugarulabel.hidden = YES;
-    self.koukaonchangelabel.hidden = YES;
     [self bashoTenkiView];
     
     if (switchnumber == 1) {
@@ -986,36 +967,5 @@
     [awaB_Player stop];
     awaB_Player.currentTime = 0;
     
-}
-
-
-- (IBAction)changekoukaon:(UIButton *)sender {
-    if (switchnumber == 1) {
-        
-    switch (koukaon_number%2) {
-        case 0:
-            koukaon_string = [koukaon_mp3 objectAtIndex:0];
-            NSLog(@"%@",koukaon_string);
-            koukaon_number++;
-            [self musicStop];
-            koukaonPlaying = awaA_Player;
-            unkoukaonPlaying = awaB_Player;
-            koukaonPlayingB = awaB_Player;
-            unkoukaonPlayingB = awaA_Player;
-            [self startMoving];
-            break;
-        case 1:
-            koukaon_string = [koukaon_mp3 objectAtIndex:1];
-            NSLog(@"%@",koukaon_string);
-            koukaon_number++;
-            [self musicStop];
-            koukaonPlaying = namiotoA_Player;
-            unkoukaonPlaying = namiotoB_Player;
-            koukaonPlayingB = namiotoB_Player;
-            unkoukaonPlayingB = namiotoA_Player;
-            [self startMoving];
-
-    }
-    }
 }
 @end
