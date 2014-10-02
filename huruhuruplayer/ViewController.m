@@ -20,7 +20,14 @@
     AVAudioPlayer *happinesspuricure_Player;
     AVAudioPlayer *namiotoA_Player;
     AVAudioPlayer *namiotoB_Player;
+    AVAudioPlayer *awaA_Player;
+    AVAudioPlayer *awaB_Player;
     AVAudioPlayer *nowPlaying;
+    AVAudioPlayer *koukaonPlaying;
+    AVAudioPlayer *unkoukaonPlaying;
+    AVAudioPlayer *koukaonPlayingB;
+    AVAudioPlayer *unkoukaonPlayingB;
+
     UIProgressView * progress1;
    
     NSTimer *timer;
@@ -41,8 +48,11 @@
     UIActionSheet *sheet;
     NSString *url_tenki;
     NSArray *orugoru_mp3;
+    NSArray *koukaon_mp3;
     NSString *orugoru_string;
+    NSString *koukaon_string;
     NSInteger orugoru_number;
+    NSInteger koukaon_number;
     //NSInteger FuruFurikSender;
     UIImageView *img;
     //int frik;
@@ -158,6 +168,30 @@
     }
     [namiotoB_Player setDelegate:self];// 自分自身をデリゲートに設定
     
+    NSError *error7 = nil;
+    NSString *path7 = [[NSBundle mainBundle] pathForResource:@"awaA" ofType:@"mp3"];// 再生する audio ファイルのパスを取得
+    // パスから、再生するURLを作成する
+    NSURL *url_7 = [[NSURL alloc] initFileURLWithPath:path7];
+    namiotoB_Player = [[AVAudioPlayer alloc] initWithContentsOfURL:url_7 error:&error7];// auido を再生するプレイヤーを作成する
+    // エラーが起きたとき
+    if ( error7 != nil )
+    {
+        NSLog(@"Error %@", [error7 localizedDescription]);
+    }
+    [namiotoB_Player setDelegate:self];// 自分自身をデリゲートに設定
+    
+    NSError *error8 = nil;
+    NSString *path8 = [[NSBundle mainBundle] pathForResource:@"awaB" ofType:@"mp3"];// 再生する audio ファイルのパスを取得
+    // パスから、再生するURLを作成する
+    NSURL *url_8 = [[NSURL alloc] initFileURLWithPath:path8];
+    namiotoB_Player = [[AVAudioPlayer alloc] initWithContentsOfURL:url_8 error:&error8];// auido を再生するプレイヤーを作成する
+    // エラーが起きたとき
+    if ( error8 != nil )
+    {
+        NSLog(@"Error %@", [error8 localizedDescription]);
+    }
+    [namiotoB_Player setDelegate:self];// 自分自身をデリゲートに設定
+    
     //プログレスバーの表示の調整
     progress1 = [  [ UIProgressView alloc ] initWithProgressViewStyle:UIProgressViewStyleDefault ];
     progress1.frame = CGRectMake( 10, 530, 300, 300 );
@@ -189,6 +223,7 @@
     url_tenki = idString;//後で生成するurlrequestのためにurl_tenkiに代入しておく
     
     orugoru_mp3 = [NSArray arrayWithObjects:@"キラキラ星", @"妖怪ウォッチ", @"プリキュア", @"デフォルト", nil];
+    koukaon_mp3 = [NSArray arrayWithObjects:@"波音", @"水音",nil];
     
     
     //アニメーターを設定
@@ -210,6 +245,11 @@
     [_collision addBoundaryWithIdentifier:@"bottom"
                                 fromPoint:CGPointMake(w, 0)
                                   toPoint:CGPointMake(w, h)];
+    
+    koukaonPlaying = namiotoA_Player;
+    unkoukaonPlaying = namiotoB_Player;
+    koukaonPlayingB = namiotoB_Player;
+    unkoukaonPlayingB = namiotoA_Player;
     
 
 }
@@ -246,6 +286,8 @@
         self.change_orugarulabel.hidden = NO;
         self.animationlabel.hidden = NO;
         self.hitsujiview.hidden = YES;
+        self.koukaonchangelabel.hidden = YES;
+
 
         //[mizunooto_Player stop];
         //mizunooto_Player.currentTime = 0;
@@ -273,6 +315,8 @@
         self.blackview.hidden = NO;
         self.hitsujiview.hidden = YES;
         self.change_orugarulabel.hidden = YES;
+        self.koukaonchangelabel.hidden = NO;
+
         
 
 
@@ -377,18 +421,22 @@
                                                  float centerX;
                                                  centerX = 160.0 - acceleration.x *160.0;
                                                  if (centerY < 274 && centerY >= 0) {
-                                                     [namiotoA_Player play];
-                                                     [namiotoB_Player stop];
-                                                     namiotoB_Player.currentTime = 0;
+                                                     //koukaonPlaying = namiotoA_Player;
+                                                     //unkoukaonPlaying = namiotoB_Player;
+                                                     [koukaonPlaying play];
+                                                     [unkoukaonPlaying stop];
+                                                     unkoukaonPlaying.currentTime = 0;
                                                      
                                                   NSLog(@"ゆらゆらされました");}else if (centerY > 294 && centerY >= 568 ){
-                                                      [namiotoB_Player play];
-                                                      [namiotoA_Player stop];
-                                                      namiotoA_Player.currentTime = 0;
+                                                      koukaonPlayingB = namiotoB_Player;
+                                                      unkoukaonPlayingB = namiotoA_Player;
+                                                      [koukaonPlaying play];
+                                                      [unkoukaonPlaying stop];
+                                                      unkoukaonPlaying.currentTime = 0;
                                                       ;
                                                     NSLog(@"ゆらゆらされました");
                                                                                                     }else if(centerY >= 274 &&centerY <= 294){
-                                                                                                [namiotoA_Player stop];
+                                                                                                [koukaonPlaying stop];
                                                                                                         [namiotoB_Player stop];
                                                                             namiotoA_Player.currentTime = 0;
                                                                                                         namiotoB_Player.currentTime = 0;
@@ -835,6 +883,7 @@
     self.modorubuttonview.hidden = YES;
     self.blackview.hidden = YES;
     self.change_orugarulabel.hidden = YES;
+    self.koukaonchangelabel.hidden = YES;
     [self bashoTenkiView];
     
     if (switchnumber == 1) {
@@ -928,7 +977,41 @@
     [happinesspuricure_Player stop];
     happinesspuricure_Player.currentTime = 0;
     nowPlaying.currentTime = 0;
+    [awaA_Player stop];
+    awaA_Player.currentTime = 0;
+    [awaB_Player stop];
+    awaB_Player.currentTime = 0;
+    
 }
 
 
+- (IBAction)changekoukaon:(UIButton *)sender {
+    if (switchnumber == 1) {
+        
+    switch (koukaon_number%2) {
+        case 0:
+            koukaon_string = [koukaon_mp3 objectAtIndex:0];
+            NSLog(@"%@",koukaon_string);
+            koukaon_number++;
+            [self musicStop];
+            koukaonPlaying = awaA_Player;
+            unkoukaonPlaying = awaB_Player;
+            koukaonPlayingB = awaB_Player;
+            unkoukaonPlayingB = awaA_Player;
+            [self startMoving];
+            break;
+        case 1:
+            koukaon_string = [koukaon_mp3 objectAtIndex:1];
+            NSLog(@"%@",koukaon_string);
+            koukaon_number++;
+            [self musicStop];
+            koukaonPlaying = namiotoA_Player;
+            unkoukaonPlaying = namiotoB_Player;
+            koukaonPlayingB = namiotoB_Player;
+            unkoukaonPlayingB = namiotoA_Player;
+            [self startMoving];
+
+    }
+    }
+}
 @end

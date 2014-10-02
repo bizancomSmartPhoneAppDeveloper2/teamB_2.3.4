@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="75039536-C451-4BA1-9193-E5D9E3256986" translatesAutoresizingMaskIntoConstraints="NO" id="6OP-Q7-9Oi">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="9D4C87B5-3D95-48BD-9E5E-53CF1DD0729B" translatesAutoresizingMaskIntoConstraints="NO" id="6OP-Q7-9Oi">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" red="0.99520208840000002" green="0.65186173979999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
@@ -89,6 +89,17 @@
                                     <action selector="change_orugoru:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="iW8-6j-g42"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7o4-Ws-V7M">
+                                <rect key="frame" x="0.0" y="479" width="155" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                <state key="normal" title="効果音変える">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="changekoukaon:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="C0e-kS-Kmc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -100,6 +111,7 @@
                         <outlet property="blackview" destination="Pdx-HC-kiu" id="sW0-6v-EFH"/>
                         <outlet property="change_orugarulabel" destination="7ag-RJ-02r" id="O4R-zc-QP4"/>
                         <outlet property="hitsujiview" destination="6OP-Q7-9Oi" id="Ruv-Ao-RNm"/>
+                        <outlet property="koukaonchangelabel" destination="7o4-Ws-V7M" id="2KP-Mm-Vci"/>
                         <outlet property="modorubuttonview" destination="t9y-v5-D1k" id="Aeo-9X-Lbg"/>
                         <outlet property="movinghitsujiimage" destination="LtW-lP-oXJ" id="Lqm-We-Rge"/>
                         <outlet property="yurayuralabel" destination="yA9-P0-N2n" id="GNF-7X-YRE"/>
@@ -111,7 +123,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="75039536-C451-4BA1-9193-E5D9E3256986" width="405" height="357">
+        <image name="9D4C87B5-3D95-48BD-9E5E-53CF1DD0729B" width="405" height="357">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPD1YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
 GR4fJSYtMDY5VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz
