@@ -29,5 +29,7 @@
 @property (nonatomic, strong) UIDynamicAnimator *animator;
 @property (nonatomic, strong) UIGravityBehavior *gravity;
 @property (nonatomic, strong) UICollisionBehavior *collision;
+@property NSTimeInterval timestampBegan;
+@property CGPoint pointBegan;
 @end
 

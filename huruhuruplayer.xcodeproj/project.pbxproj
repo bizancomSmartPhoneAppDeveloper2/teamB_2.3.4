@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		073EFF1119DCE44100409072 /* awaA.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 073EFF1019DCE44000409072 /* awaA.mp3 */; };
+		073EFF1319DCE44C00409072 /* awaB.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 073EFF1219DCE44C00409072 /* awaB.mp3 */; };
+		0757BFDB19DCDAE200F8F25A /* www-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0757BFDA19DCDAE200F8F25A /* www-3.png */; };
 		0774F43619DA3AE60044C49A /* moving_hitsuji.png in Resources */ = {isa = PBXBuildFile; fileRef = 0774F43519DA3AE60044C49A /* moving_hitsuji.png */; };
 		0774F43819DA4C950044C49A /* hosizorahaikei.png in Resources */ = {isa = PBXBuildFile; fileRef = 0774F43719DA4C950044C49A /* hosizorahaikei.png */; };
 		0774F43A19DA52FB0044C49A /* kirakiraboshi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0774F43919DA52FB0044C49A /* kirakiraboshi.mp3 */; };
@@ -42,6 +45,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		073EFF1019DCE44000409072 /* awaA.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = awaA.mp3; sourceTree = "<group>"; };
+		073EFF1219DCE44C00409072 /* awaB.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = awaB.mp3; sourceTree = "<group>"; };
+		0757BFDA19DCDAE200F8F25A /* www-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "www-3.png"; sourceTree = "<group>"; };
 		0774F43519DA3AE60044C49A /* moving_hitsuji.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moving_hitsuji.png; sourceTree = "<group>"; };
 		0774F43719DA4C950044C49A /* hosizorahaikei.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hosizorahaikei.png; sourceTree = "<group>"; };
 		0774F43919DA52FB0044C49A /* kirakiraboshi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kirakiraboshi.mp3; sourceTree = "<group>"; };
@@ -130,9 +136,12 @@
 		07CD634819D29C7300130473 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				073EFF1219DCE44C00409072 /* awaB.mp3 */,
+				073EFF1019DCE44000409072 /* awaA.mp3 */,
+				0757BFDA19DCDAE200F8F25A /* www-3.png */,
+				0774F43F19DA79340044C49A /* www.png */,
 				0774F44319DA7B130044C49A /* namiotoB.mp3 */,
 				0774F44119DA7B010044C49A /* namiotoA.mp3 */,
-				0774F43F19DA79340044C49A /* www.png */,
 				0774F43D19DA530B0044C49A /* happinesspuricure.mp3 */,
 				0774F43B19DA53020044C49A /* youkaiwhotch.mp3 */,
 				0774F43919DA52FB0044C49A /* kirakiraboshi.mp3 */,
@@ -248,7 +257,9 @@
 			files = (
 				07A3060C19D93741009AC42F /* TOP-2-3.png in Resources */,
 				0774F44019DA79340044C49A /* www.png in Resources */,
+				073EFF1119DCE44100409072 /* awaA.mp3 in Resources */,
 				07CD635419D29C7300130473 /* Main.storyboard in Resources */,
+				0757BFDB19DCDAE200F8F25A /* www-3.png in Resources */,
 				0774F44419DA7B130044C49A /* namiotoB.mp3 in Resources */,
 				0774F43619DA3AE60044C49A /* moving_hitsuji.png in Resources */,
 				0774F43819DA4C950044C49A /* hosizorahaikei.png in Resources */,
@@ -261,6 +272,7 @@
 				0774F43E19DA530B0044C49A /* happinesspuricure.mp3 in Resources */,
 				07CD635619D29C7300130473 /* Images.xcassets in Resources */,
 				0774F44219DA7B010044C49A /* namiotoA.mp3 in Resources */,
+				073EFF1319DCE44C00409072 /* awaB.mp3 in Resources */,
 				07A3061019D938F7009AC42F /* mizunonaka.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

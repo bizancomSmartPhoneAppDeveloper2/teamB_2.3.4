@@ -24,6 +24,9 @@
     UIProgressView * progress1;
    
     NSTimer *timer;
+    NSInteger whatTime;
+    float progress_mainasu;
+    float progress_purasu;
     UIView *animationView;
     UIImageView *imageView;
     NSInteger switchnumber;
@@ -40,10 +43,12 @@
     NSArray *orugoru_mp3;
     NSString *orugoru_string;
     NSInteger orugoru_number;
-    
+    //NSInteger FuruFurikSender;
     UIImageView *img;
-
-    
+    //int frik;
+    NSString *message;
+    UIAlertView *alert;
+    int hitsuji_otita;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -164,12 +169,13 @@
     [self.view addSubview:progress1 ];
     progress1.hidden = YES;
     //self.basholabel.text = @"徳島県";
-    self.modorubuttonview.hidden = YES;
-    self.movinghitsujiimage.hidden = YES;
-    self.yurayuralabel.hidden = YES;
-    self.hitsujiview.hidden = NO;
-    self.basho.hidden = NO;
-    self.change_orugarulabel.hidden = YES;
+    //self.modorubuttonview.hidden = YES;
+    //self.movinghitsujiimage.hidden = YES;
+    //self.yurayuralabel.hidden = YES;
+    //self.hitsujiview.hidden = NO;
+    //self.basho.hidden = NO;
+    //self.change_orugarulabel.hidden = YES;
+    [self defaultpege];
     
     //ユーザが選択した都道府県があればそれをデフォルトとして表示する、保存されている都道府県を取り出してラベルに表示
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -197,7 +203,14 @@
     
     [self.animator addBehavior:self.gravity];
     [self.animator addBehavior:self.collision];
-
+    CGSize s = self.view.frame.size;
+    CGFloat w = s.width;
+    CGFloat h = s.height;
+    
+    [_collision addBoundaryWithIdentifier:@"bottom"
+                                fromPoint:CGPointMake(w, 0)
+                                  toPoint:CGPointMake(w, h)];
+    
 
 }
 
@@ -233,12 +246,15 @@
         self.change_orugarulabel.hidden = NO;
         self.animationlabel.hidden = NO;
         self.hitsujiview.hidden = YES;
+
         //[mizunooto_Player stop];
         //mizunooto_Player.currentTime = 0;
         
         if(progress1.progress > 0){
             [timer invalidate];
             [orugoru_Player play];
+            nowPlaying = orugoru_Player;
+            [nowPlaying setNumberOfLoops:-1];
             [self timer];
             NSLog(@"オルゴール");
         }else nil;
@@ -257,6 +273,7 @@
         self.blackview.hidden = NO;
         self.hitsujiview.hidden = YES;
         self.change_orugarulabel.hidden = YES;
+        
 
 
         //[timer invalidate];
@@ -267,11 +284,11 @@
 }
 
 
-//タイマーで2秒ずつ引いて行く
+//タイマーでwhatTime秒ずつ引いて行く
 -(void)timer{
-    //2秒ごとにこのタイマー呼ばれてcountdownメソッドを繰り返し実行します
+    //whatTime秒ごとにこのタイマー呼ばれてcountdownメソッドを繰り返し実行します
        timer = [NSTimer
-             scheduledTimerWithTimeInterval:60
+             scheduledTimerWithTimeInterval:whatTime
              target: self
              selector:@selector(countdown)
              userInfo:nil
@@ -279,7 +296,7 @@
 }
 
 -(void)countdown{
-    progress1.progress = (progress1.progress-0.1);
+    progress1.progress = (progress1.progress-(progress_mainasu));
     if (progress1.progress == 0) {
         [orugoru_Player stop];
         [kirakiraboshi_Player stop];
@@ -292,13 +309,18 @@
 
 //シェイクさせれるとこのメソッドが呼ばれる
 -(void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event{
+        //if (FuruFurikSender == 0) {
     [namiotoB_Player stop];
     namiotoB_Player.currentTime = 0;
     [namiotoA_Player stop];
     namiotoA_Player.currentTime = 0;
     [self.view addSubview:progress1 ];
+    //[self hitsuji_hurihuriAnimation];
+    
     
     if (switchnumber == 0) {
+        //[self hitsuji_hurihuriAnimation];
+
         NSLog(@"シェイクされました");
         self.basho.hidden = YES;
         self.blackview.hidden = NO;
@@ -307,17 +329,24 @@
         self.modorubuttonview.hidden = NO;
         self.change_orugarulabel.hidden = NO;
 
-
-        [progress1 setProgress:(progress1.progress+0.5) animated:YES ]; // アニメーション付きで進捗を指定
+        progress_purasu = 0.5;
+        [progress1 setProgress:(progress1.progress+(progress_purasu)) animated:YES ]; // アニメーション付きで進捗を指定
         if(nowPlaying == nil){
             [orugoru_Player play];
+            nowPlaying = orugoru_Player;
+            [nowPlaying setNumberOfLoops:-1];
         }else{
             [nowPlaying play];
+            [nowPlaying setNumberOfLoops:-1];
+
         }
+        whatTime = 2;
+        progress_mainasu = 0.1;
         [self timer];
     }else
         nil;
-    
+    //}else
+      //  nil;
 }
 
 //傾けられるとこのメソッドが呼ばれる
@@ -351,12 +380,12 @@
                                                      [namiotoA_Player play];
                                                      [namiotoB_Player stop];
                                                      namiotoB_Player.currentTime = 0;
-                                                     [self hitsuji_yurayuraAnimation];
+                                                     
                                                   NSLog(@"ゆらゆらされました");}else if (centerY > 294 && centerY >= 568 ){
                                                       [namiotoB_Player play];
                                                       [namiotoA_Player stop];
                                                       namiotoA_Player.currentTime = 0;
-                                                      [self hitsuji_yurayuraAnimation];
+                                                      ;
                                                     NSLog(@"ゆらゆらされました");
                                                                                                     }else if(centerY >= 274 &&centerY <= 294){
                                                                                                 [namiotoA_Player stop];
@@ -365,7 +394,7 @@
                                                                                                         namiotoB_Player.currentTime = 0;
                                                                                                     }
                                                  //self.yurayuralabel.center = CGPointMake(self.yurayuralabel.center.x, centerY);
-                                                 //self.movinghitsujiimage.center= CGPointMake(self.yurayuralabel.center.x,centerY);
+                                                 self.movinghitsujiimage.center= CGPointMake(self.yurayuralabel.center.x,centerY);
                                              }];
    
 }
@@ -786,6 +815,10 @@
     [self defaultpege];
     
     [self musicStop];
+    for (int i =0; i <= hitsuji_otita; i++) {
+        
+    [img removeFromSuperview];
+    }
 }
 
 -(void)defaultpege{
@@ -860,18 +893,25 @@
     
 }
 
--(void)hitsuji_yurayuraAnimation{
+-(void)hitsuji_hurihuriAnimation{
+    //[[self.view viewWithTag:1] removeFromSuperview];
     //x座標はランダムで。
     int posX = random() % 320;
-    int posY = random() % 320;
+    //int posY = random() % 320;
+    
     //ワンプラロゴの画像のUIImagevViewを作成
     img = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@",@"www.png"]]];
     //img.center = CGPointMake(posX, 0);
-    img.frame = CGRectMake(posX, posY, 100, 100);
+    img.frame = CGRectMake(posX, 0, 100, 100);
+    img.tag = 1;
+    img.alpha = 0.6;
+    hitsuji_otita++;
+    
     
     [self.view addSubview:img];         //ロゴ画像を表示
     [self.gravity addItem:img];         //ロゴ画像に重力を反映
     [self.collision addItem:img];       //ロゴ画像に衝突判定を反映
+
 }
 
 -(void)musicStop{
@@ -889,4 +929,6 @@
     happinesspuricure_Player.currentTime = 0;
     nowPlaying.currentTime = 0;
 }
+
+
 @end
